@@ -88,7 +88,7 @@ public class Context {
 	
 	public String getCurrentUserName() {
 		User u = (User) this.session.getAttribute(SESSION_KEY_USER);
-		return (u==null)?"×�×•×¨×—": u.getNickName();
+		return (u==null)?"אורח": u.getNickName();
 	}
 	
 	public void handleLogin() {

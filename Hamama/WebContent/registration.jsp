@@ -166,12 +166,12 @@ body {
         </div> -->
         
         <div class="form__group">
-            <input type="password" placeholder="Password" class="form__input" name="password" id="password" />
+            <input style="margin-top: 1px" type="password" placeholder="Password" class="form__input" name="password" id="password" />
         </div>
         
-        <button class="btn" type="submit" formaction="HttpHandler?cmd=register" onclick="approve();">Register</button>
+        <button class="btn" type="submit" formaction="HttpHandler?cmd=register" onclick="approve();" style="border-radius: 50px; margin-top: 30px">Register</button>
 
-        <button class="btn" type="submit" formaction="HttpHandler?cmd=login">Login</button>
+        <button class="btn" type="submit" formaction="HttpHandler?cmd=login" style="border-radius: 50px; margin-top: 10px">Login</button>
     </form>
 </div>
 

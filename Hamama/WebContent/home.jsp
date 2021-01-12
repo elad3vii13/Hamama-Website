@@ -37,19 +37,17 @@ body {
 </head>
 <body>
 <%@ include file="header.jsp" %>
-<!-- <div class="content">
-	<p style="text-align: center;">זה דף הנחיתה שלך, כאן אתה מציג מה האתר שלך עוסק בו ולמה כדאי להרשם אליו...</p>  
-</div> -->
 
-
-
-<button class="footer" onclick="getAllSensorsList()">לקבלת רשימת החיישנים המעודכנת יש ללחות כאן</button>
-	<div id="container"></div>
+<header style="  text-align: center; margin-top: 50px; margin-left: 190px; margin-right: 190px; font-weight: bold; color: white; font-size: 100px; text-shadow: 2px 2px 4px #000000;">
+ברוכים הבאים למסך הבית של אתר החממה
+</header>
 	
+<p></p>
 </body>
 
 <script>
 
+/*
 function addHeaders(table, keys) {
 	  var row = table.insertRow();
 	  for( var i = 0; i < keys.length; i++ ) {
@@ -57,6 +55,7 @@ function addHeaders(table, keys) {
 	    cell.appendChild(document.createTextNode(keys[i]));
 	  }
 	}
+	
 
 function getAllSensorsList(){
 	
@@ -79,34 +78,7 @@ function getAllSensorsList(){
 
     	document.getElementById('container').appendChild(table);
 }
-
-window.onload = function () {
-	var chart = new CanvasJS.Chart("chartContainer", {
-		animationEnabled: true,
-		theme: "light2",
-		title:{
-			text: "Stats"
-		},
-		data: [{        
-			type: "line",
-	      	indexLabelFontSize: 16,
-			dataPoints: [
-				{ y: 450 },
-				{ y: 414},
-				{ y: 460 },
-				{ y: 450 },
-				{ y: 500 },
-				{ y: 480 },
-				{ y: 480 },
-				{ y: 500 },
-				{ y: 480 },
-				{ y: 510 }
-			]
-		}]
-	});
-	chart.render();
-
-	}
+*/
 </script>
 
 </html>
