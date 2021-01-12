@@ -125,21 +125,17 @@ function createDataPoints(){
 	}
 	
 	
-	
-	
-	function parseDataPoints() {
+	//PARSE DP
 		  for (var i = dps.length; i < dateArray.length; i++)
 		    dps.push({
 		      x: new Date(dateArray[i]),
 		      y: numberArray[i]
 		    });
-		};
 
-	function addDataPoints(){
+	//addDataPoints()
 	  parseDataPoints();
 	  chart.options.data[0].dataPoints = dps;
 	  chart.render();
-	}
 
 	addDataPoints();
 }

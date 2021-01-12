@@ -38,7 +38,7 @@
 	}
 	else {
 		out.write("שלום אורח");
-	}%> </p>
+	}%></p>
 </ul>
 </body>
 </html>

@@ -40,8 +40,7 @@ body {
 
 <header style="  text-align: center; margin-top: 50px; margin-left: 190px; margin-right: 190px; font-weight: bold; color: white; font-size: 100px; text-shadow: 2px 2px 4px #000000;">
 ברוכים הבאים למסך הבית של אתר החממה
-</header>
-	
+</header>	
 <p></p>
 </body>
 
@@ -80,5 +79,4 @@ function getAllSensorsList(){
 }
 */
 </script>
-
 </html>

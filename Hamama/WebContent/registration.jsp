@@ -7,10 +7,8 @@
 <title>Insert title here</title>
 
 <style>
-
 $font-family:   "Roboto";
 $font-size:     14px;
-
 $color-primary: #ABA194;
 
 * {
@@ -125,16 +123,13 @@ body {
     0% {
         background-position: 0 0
     }
-
     50% {
         background-position: 100% 0
     }
-
     100% {
         background-position: 0 0
     }
 }
-
 </style>
 </head>
 <body>
@@ -146,31 +141,17 @@ body {
         <h1 class="user__title">ברוכים הבאים לדף הרישום של החממה</h1>
     </header>
     
-    <form class="form" method="post">
-            
-        		<br>
- 
-        		<label for="role">מנהל?</label>
+    <form class="form" method="post"><br>
+        <label for="role">מנהל?</label>
         		
-		<input type="checkbox" id="role" name="role" value="manager">
-		<br>
-				<br>
-		
-    
-        <div class="form__group">
-            <input type="text" name="nickname" id="nickname" placeholder="Username" class="form__input" />
-        </div>
-        
-       <!--  <div class="form__group">
-            <input type="email" placeholder="Email" class="form__input" />
-        </div> -->
+		<input type="checkbox" id="role" name="role" value="manager"><br><br>
+        <div class="form__group"> 
+         <input type="text" name="nickname" id="nickname" placeholder="Username" class="form__input" /></div>
         
         <div class="form__group">
-            <input style="margin-top: 1px" type="password" placeholder="Password" class="form__input" name="password" id="password" />
-        </div>
+        <input style="margin-top: 1px" type="password" placeholder="Password" class="form__input" name="password" id="password" /></div>
         
         <button class="btn" type="submit" formaction="HttpHandler?cmd=register" onclick="approve();" style="border-radius: 50px; margin-top: 30px">Register</button>
-
         <button class="btn" type="submit" formaction="HttpHandler?cmd=login" style="border-radius: 50px; margin-top: 10px">Login</button>
     </form>
 </div>
@@ -180,6 +161,5 @@ function approve(){
 	window.alert("Thank you for registering");
 }
 </script>
-
 </body>
 </html>
