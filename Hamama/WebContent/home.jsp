@@ -15,6 +15,8 @@
 }
 
 body {
+overflow: hidden;
+  clear: both;
     font-family: $font-family;
     font-size: $font-size;
     background-size: 200% 100% !important;
@@ -31,17 +33,21 @@ body {
        width: 100%;
    } 
 </style>
-
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
 <%@ include file="header.jsp" %>
 
-<header style="  text-align: center; margin-top: 50px; margin-left: 190px; margin-right: 190px; font-weight: bold; color: white; font-size: 100px; text-shadow: 2px 2px 4px #000000;">
+<img style="float: left; width: 30%; height: 96%;" alt="sd" src="images/bg1.jpg">
+
+<div style="float:right; width: 60%">
+<header style="margin-top: 30px; text-align: center; margin-left: 190px; margin-right: 190px; font-weight: bold; color: white; font-size: 70px; text-shadow: 2px 2px 4px #000000;">
 ברוכים הבאים למסך הבית של אתר החממה
 </header>	
-<p></p>
+
+<p style="margin: 70px; color: white; font-size: 40px; text-shadow: 2px 1px 1px #000000;">באתר האינטרנט של החממה ניתן לצפות בנתוני מדידות החיישנים שנמצאים בחממה בצורת גרף קווי.
+בנוסף ניתן לראות את היסטוריית התקלות שנמצאו בחיישנים בצורה סלקטיבית באמצעות הגדרת טווח תאריכים.</p></div>
 </body>
 
 <script>

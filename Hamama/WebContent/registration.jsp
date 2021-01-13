@@ -1,3 +1,4 @@
+<%@page import="com.sun.net.httpserver.HttpHandler"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -18,6 +19,7 @@ $color-primary: #ABA194;
 }
 
 body {
+overflow: hidden;
     font-family: $font-family;
     font-size: $font-size;
     background-size: 200% 100% !important;
