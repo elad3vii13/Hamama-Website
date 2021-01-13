@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Hamama</title>
 
 <style>
 $font-family:   "Roboto";
@@ -140,7 +140,13 @@ overflow: hidden;
 	<div class="user">
     <header class="user__header">
         <img src="https://cdn.iconscout.com/icon/free/png-512/leaf-444-675813.png" alt=""  style="width: 100px; height: 100px"/>
-        <h1 class="user__title">ברוכים הבאים לדף הרישום של החממה</h1>
+        <h1 class="user__title" style=" text-shadow: 0 1px 0 #ccc,
+               0 0 5px rgba(0,0,0,.1),
+               0 1px 3px rgba(0,0,0,.3),
+               0 3px 5px rgba(0,0,0,.2),
+               0 5px 10px rgba(0,0,0,.25),
+               0 10px 10px rgba(0,0,0,.2),
+               0 20px 20px rgba(0,0,0,.15);">ברוכים הבאים לדף הרישום של החממה</h1>
     </header>
     
     <form class="form" method="post"><br>

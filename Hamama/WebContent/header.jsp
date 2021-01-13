@@ -31,7 +31,9 @@
       <a href="#">אופציה ג</a>
     </div>
   </li>  -->
-   <li><a href="about.jsp">אודות</a></li>
+   <!--  <li><a href="about.jsp">אודות</a></li>  -->
+   
+   <li><a href="logs.jsp">היסטוריה</a></li> 
    <p style= "float: left; color: white; margin-left: 10px; margin-top: 10px">
 <%  if(ctx.isLoggedIn()){
 		out.write(ctx.getCurrentUserName());

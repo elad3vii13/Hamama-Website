@@ -1,4 +1,3 @@
-<%@page import="logic.Util"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -6,8 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Hamama</title>
-
 <style>
+
 .upperDiv {
 margin-top: 10px;
   justify-content: space-between;
@@ -21,7 +20,7 @@ body {
     background-size: 200% 100% !important;
     animation: move 10s ease infinite;
     transform: translate3d(0, 0, 0);
-    background: linear-gradient(45deg, #49D49D 10%, #A2C7E5 90%);
+    background: linear-gradient(45deg, #06D5FA 10%, #A2C7E5 90%);
     height: 100vh
 }
 
@@ -51,14 +50,14 @@ button {
 <body onload="onLoadFunctions();">
 <%@ include file="header.jsp" %>
 
-<div class="upperDiv" style="height: 30%; width: 95%; border-radius: 20px; background-color: white; margin: 20px auto; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+<div class="upperDiv" style="height: 40%; width: 95%; border-radius: 20px; background-color: white; margin: 20px auto; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
 
 <!-- FROM DATE -->
 <header style="margin-top: 30px; margin-right: 30px;">מתאריך:</header>
 <input type="datetime-local" id="fromValue" name="from" value="2021-01-1T19:30" style="width: 30%; margin-right: 30px"></input>
       
 <!-- TO DATE --> 
-<header style="margin-top: 30px; margin-right: 30px;">עד תאריך:</header>
+<header style="margin-top: 10px; margin-right: 30px;">עד תאריך:</header>
 <input type="datetime-local" id="toValue" name="to" value="2021-01-1T19:30" style="width: 30%; margin-right: 30px"></input>
 
 <select name="sensor" id="sensor" style="width: 30%; margin-right: 30px; margin-top: 10px" dir="rtl"> 
@@ -71,17 +70,17 @@ button {
     <option value="6">טמפרטורה 3</option>
 </select>
 
-<button style="margin-bottom: 10px;" onclick="addGraph()">הוסף גרף</button>
-</div>
- 
-<div style="height: 56%; width: 95%; border-radius: 20px; background-color: white; margin: auto; position: fixed; left: 50%; transform: translateX(-50%); box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+<select name="priority" id="priority" style="width: 30%; margin-right: 30px; margin-top: 10px" dir="rtl"> 
+    <option value="0">--בחר עדיפות--</option>
+    <option value="error">תקלה</option>
+    <option value="warning">אזהרה</option>
+    <option value="info">ידיעה</option>
+</select>
 
-<div id="chartContainer" style="margin:30px;"></div>
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<button style="margin-bottom: 10px;" onclick="getHistory()">הוסף גרף</button>
 </div>
-</body>
+
 <script>
-
 function onLoadFunctions(){
 	<% 
 	if(!ctx.isLoggedIn())
@@ -94,66 +93,18 @@ function onLoadFunctions(){
 	%>
 }
 
-function addGraph(){
+function getHistory(){
+	
 	var from = document.getElementById("fromValue").value;
 	var fromUnix = new Date(from).valueOf();
 	
 	var to = document.getElementById("toValue").value;
 	var toUnix = new Date(to).valueOf();
+	
 	var sensor = document.getElementById("sensor").value;
-	
-    var result = "http://127.0.0.1:8080/mobile?cmd=measure&sid=" + sensor + '&from=' + fromUnix + '&to=' + toUnix;    
-
-    // GET THE DATA FROM THE URL
-	
-    /* 
-    var dataset;
-    fetch('https://jsonplaceholder.typicode.com/todos/1')
-      .then(response => response.json())
-      .then(data => dataset = data) // this unnecessary
-      .then(json => {
-        console.log(json);
-        // continue and do something here
-        alert(JSON.stringify(json));
-    }); */
+	var priority = document.getElementById("priority").value;
+    var result = "http://127.0.0.1:8080/mobile?cmd=log&sid=" + sensor + '&from=' + fromUnix + '&to=' + toUnix + '&priority=' + priority;    
 }
-
-
-function createDataPoints(){
-	myObj = {"id":1,"name":"EC","units":"S/m","measures":"[{\"time\":0,\"sid\":0,\"value\":15.4},{\"time\":0,\"sid\":0,\"value\":15.4},{\"time\":0,\"sid\":0,\"value\":13.0},{\"time\":0,\"sid\":0,\"value\":13.0},{\"time\":0,\"sid\":0,\"value\":12.4},{\"time\":0,\"sid\":0,\"value\":12.4},{\"time\":0,\"sid\":0,\"value\":12.4565},{\"time\":12345,\"sid\":0,\"value\":5.4}]"};
-	console.log((myObj).measures);
-	
-	/*
-	Array value;
-	Array time;
-	
-	var i =0;
-	while(myObj.measures[i].time != null){
-		value.
-		time.
-		i++;
-	}
-	
-	
-	
-	
-	
-	
-	//PARSE DP
-	  for (var i = dps.length; i < dateArray.length; i++)
-	    dps.push({
-	      x: dateArray[i],
-	      y: numberArray[i]
-	    });
-
-	//addDataPoints()
-	  parseDataPoints();
-	  chart.options.data[0].dataPoints = dps;
-	  chart.render();
-
-	addDataPoints();
-	*/
-}
-  
 </script>
+</body>
 </html>
