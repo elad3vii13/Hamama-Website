@@ -102,11 +102,10 @@ function addGraph(){
 	var toUnix = new Date(to).valueOf();
 	var sensor = document.getElementById("sensor").value;
 	
-    var result = "http://127.0.0.1:8080/mobile?cmd=measure&sid=" + sensor + '&from=' + fromUnix + '&to=' + toUnix;    
+    var result = 'http://localhost:8080/mobile?cmd=measure&sid=' + sensor + '&from=' + fromUnix + '&to=' + toUnix;    
 
     // GET THE DATA FROM THE URL
-	
-    /* 
+	/*
     var dataset;
     fetch('https://jsonplaceholder.typicode.com/todos/1')
       .then(response => response.json())
@@ -115,13 +114,46 @@ function addGraph(){
         console.log(json);
         // continue and do something here
         alert(JSON.stringify(json));
-    }); */
+    });
+    */
+    
+    /*
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+    	//console.log(this.responseText);
+    	var result = this.responseText;
+    	createDataPoints(result);
+    };
+    xhr.open('GET', result.toString());
+    xhr.send()
+    */
+    
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
+           if (xmlhttp.status == 200) {
+               //alert(xmlhttp.responseText);
+               //var Data = JSON.parse(xmlhttp.responseText);
+               //alert(xmlhttp.responseText.id);
+               //createDatePoints(Date);
+               //alert(xmlhttp.responseText.id);
+               console.log(xmlhttp.responseText);
+               console.log(JSON.parse(xmlhttp.responseText).id);
+           }
+        }
+    };
+
+    xmlhttp.open("GET", result.toString(), true);
+    xmlhttp.send();
 }
 
 
-function createDataPoints(){
-	myObj = {"id":1,"name":"EC","units":"S/m","measures":"[{\"time\":0,\"sid\":0,\"value\":15.4},{\"time\":0,\"sid\":0,\"value\":15.4},{\"time\":0,\"sid\":0,\"value\":13.0},{\"time\":0,\"sid\":0,\"value\":13.0},{\"time\":0,\"sid\":0,\"value\":12.4},{\"time\":0,\"sid\":0,\"value\":12.4},{\"time\":0,\"sid\":0,\"value\":12.4565},{\"time\":12345,\"sid\":0,\"value\":5.4}]"};
-	console.log((myObj).measures);
+function createDataPoints(data){
+	//myObj = {"id":1,"name":"EC","units":"S/m","measures":"[{\"time\":1605461248000,\"sid\":0,\"value\":1.0},{\"time\":1605561248000,\"sid\":0,\"value\":5.0},{\"time\":1606361248000,\"sid\":0,\"value\":4.0},{\"time\":1607361248000,\"sid\":0,\"value\":2.0},{\"time\":1608361248000,\"sid\":0,\"value\":7.8}]"};
+	//console.log((myObj).measures);
+	
+	alert(data.id);
 	
 	/*
 	Array value;
