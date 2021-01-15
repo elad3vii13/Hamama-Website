@@ -7,6 +7,14 @@
 <title>Hamama</title>
 <style>
 
+.table-header {
+padding: 10px;
+text-align:center;
+	color: white;
+	background:#000;
+	padding:($half-spacing-unit * 1.5) 0;
+}
+
 .upperDiv {
 margin-top: 10px;
   justify-content: space-between;
@@ -28,6 +36,23 @@ select {
     font-size: .9rem;
     padding: 5px 15px;
 }
+
+th,td {
+	background-color: white;
+	padding: 20px;
+    border: 1px solid black;
+    text-align: center;
+}
+
+ table {
+   margin-top: 100px;
+   margin: 0 auto;
+   align="center";
+   outline: 10px black;
+   border-collapse: collapse;
+   width: 50%;
+   height: 100%; 
+ }
 
 button {
   text-align: center;
@@ -61,7 +86,7 @@ button {
 <input type="datetime-local" id="toValue" name="to" value="2021-01-1T19:30" style="width: 30%; margin-right: 30px"></input>
 
 <select name="sensor" id="sensor" style="width: 30%; margin-right: 30px; margin-top: 10px" dir="rtl"> 
-    <option value="0">--בחר חיישן--</option>
+    <option value="0">כל החיישנים</option>
     <option value="1">מוליכות</option>
     <option value="2">חומציות</option>
     <option value="3">עריכות</option>
@@ -79,6 +104,10 @@ button {
 
 <button style="margin-bottom: 10px;" onclick="getHistory()">הוסף גרף</button>
 </div>
+
+ <div style="display:flex;justify-content:center;align-items:center;margin-top: 60px">
+            <table id="Board"></table>
+ </div>
 
 <script>
 function onLoadFunctions(){
@@ -103,7 +132,44 @@ function getHistory(){
 	
 	var sensor = document.getElementById("sensor").value;
 	var priority = document.getElementById("priority").value;
-    var result = "http://127.0.0.1:8080/mobile?cmd=log&sid=" + sensor + '&from=' + fromUnix + '&to=' + toUnix + '&priority=' + priority;    
+	
+	if(sensor==0) {
+    	var result = 'http://localhost:8080/mobile?cmd=log&from=' + fromUnix + '&to=' + toUnix + '&priority=' + priority;    
+
+	}
+	else {
+	    var result = 'http://localhost:8080/mobile?cmd=log&sid=' + sensor + '&from=' + fromUnix + '&to=' + toUnix + '&priority=' + priority;  
+	}
+    
+	//console.log(result);
+	
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
+           if (xmlhttp.status == 200) { // The HTTP 200 OK success status response code indicates that the request has succeeded. 
+     	   	
+               var result = JSON.parse(xmlhttp.responseText);
+               // alert(result[0].message);
+               
+              var string_final = "";
+              string_final += "<tr><th class=table-header>sid</th><th class=table-header>message</th><th class=table-header>priority</th><th class=table-header>time</th></tr>";
+              
+               for (i in result) {
+            	   string_final += "<tr>";
+                   string_final += "<td>" + result[i].sid + "</td>";
+                   string_final += "<td>" + result[i].message + "</td>";
+                   string_final += "<td>" + result[i].priority + "</td>";
+                   string_final += "<td>" + result[i].time + "</td>";
+            	   string_final += "</tr>";
+               }
+              //console.log(string_final);
+              document.getElementById("Board").innerHTML = string_final;
+           }
+        }
+    };
+
+    xmlhttp.open("GET", result.toString(), true);
+    xmlhttp.send();   
 }
 </script>
 </body>

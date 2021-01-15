@@ -95,6 +95,7 @@ function onLoadFunctions(){
 }
 
 function addGraph(){
+	
 	var from = document.getElementById("fromValue").value;
 	var fromUnix = new Date(from).valueOf();
 	
@@ -102,8 +103,7 @@ function addGraph(){
 	var toUnix = new Date(to).valueOf();
 	var sensor = document.getElementById("sensor").value;
 	
-  var result = 'http://localhost:8080/mobile?cmd=measure&sid=' + sensor + '&from=' + fromUnix + '&to=' + toUnix;    
-
+	var result = 'http://localhost:8080/mobile?cmd=measure&sid=' + sensor + '&from=' + fromUnix + '&to=' + toUnix;    
    
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
@@ -153,7 +153,7 @@ function addGraph(){
     };
 
     xmlhttp.open("GET", result.toString(), true);
-    xmlhttp.send();   
+    xmlhttp.send();
 }
 </script>
 </html>
