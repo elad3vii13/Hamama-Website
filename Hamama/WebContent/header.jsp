@@ -14,12 +14,13 @@
   <li><a href="home.jsp">בית</a></li>
   <% 
   	if (!ctx.isLoggedIn()){
-  		out.write("<li><a href='registration.jsp'>כניסה</a></li>");
+  		out.write("<li><a href='login.jsp'>כניסה</a></li>");
   	}
   	else {
   		out.write("<li><a href='HttpHandler?cmd=logout'>יציאה</a></li>");
   	}
   %>
+  
   <li><a href="stats.jsp">נתונים</a></li>
   
   <!-- 
@@ -41,6 +42,14 @@
 	else {
 		out.write("שלום אורח");
 	}%></p>
+	
+	<% 
+  	if (ctx.isLoggedIn()){
+  		if(ctx.isManager()) {
+	  			out.write("<li><a href='management.jsp'>ניהול</a></li>");
+  		}
+  	}
+	%>
 </ul>
 </body>
 </html>

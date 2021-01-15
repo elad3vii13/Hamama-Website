@@ -8,15 +8,9 @@
 <html>
 <head>
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
-overflow: hidden;
-  clear: both;
+	overflow: hidden;
+  	clear: both;
     font-family: $font-family;
     font-size: $font-size;
     background-size: 200% 100% !important;
@@ -25,14 +19,6 @@ overflow: hidden;
     background: linear-gradient(45deg, #49D49D 10%, #A2C7E5 90%);
     height: 100vh
 }
-
- .footer{ 
-       position: fixed;     
-       text-align: center;    
-       bottom: 0px; 
-       width: 100%;
-   } 
-   
    
 </style>
 <meta charset="UTF-8">
@@ -42,7 +28,6 @@ overflow: hidden;
 <%@ include file="header.jsp" %>
 
 <img style="float: left; width: 30%; height: 96%;" alt="sd" src="images/bg1.jpg">
-
 <div style="float:right; width: 60%">
 <header style="margin-top: 30px; text-align: center; margin-left: 190px; margin-right: 190px; font-weight: bold; color: white; font-size: 70px; text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1),0 0 5px rgba(0,0,0,.1),0 1px 3px rgba(0,0,0,.3),0 3px 5px rgba(0,0,0,.2),0 5px 10px rgba(0,0,0,.25),0 10px 10px rgba(0,0,0,.2),0 20px 20px rgba(0,0,0,.15);">
 ברוכים הבאים למסך הבית של אתר החממה
@@ -51,40 +36,4 @@ overflow: hidden;
 <p style="margin: 70px; color: white; font-size: 40px; text-shadow: 2px 1px 1px #000000;">באתר האינטרנט של החממה ניתן לצפות בנתוני מדידות החיישנים שנמצאים בחממה בצורת גרף קווי.
 בנוסף ניתן לראות את היסטוריית התקלות שנמצאו בחיישנים בצורה סלקטיבית באמצעות הגדרת טווח תאריכים.</p></div>
 </body>
-
-<script>
-
-/*
-function addHeaders(table, keys) {
-	  var row = table.insertRow();
-	  for( var i = 0; i < keys.length; i++ ) {
-	    var cell = row.insertCell();
-	    cell.appendChild(document.createTextNode(keys[i]));
-	  }
-	}
-	
-
-function getAllSensorsList(){
-	
-    var children = [{"id":1,"displayName":"מוליכות","name":"EC","units":"S/m"},{"id":2,"displayName":"חומציות","name":"PH","units":""},{"id":3,"displayName":"עכירות","name":"Turbidness","units":"NTU"},{"id":4,"displayName":"טמפרטורה 1","name":"temp1","units":"celsius"},{"id":5,"displayName":"טמפרטורה 2","name":"temp2","units":"celsius"},{"id":6,"displayName":"טמפרטורה 3","name":"temp3","units":"celsius"}];
-    
-    	var table = document.createElement('table');
-    	for( var i = 0; i < children.length; i++ ) {
-
-    	  var child = children[i];
-    	  if(i === 0 ) {
-    	    addHeaders(table, Object.keys(child));
-    	  }
-    	  var row = table.insertRow();
-    	  Object.keys(child).forEach(function(k) {
-    	    console.log(k);
-    	    var cell = row.insertCell();
-    	    cell.appendChild(document.createTextNode(child[k]));
-    	  })
-    	}
-
-    	document.getElementById('container').appendChild(table);
-}
-*/
-</script>
 </html>

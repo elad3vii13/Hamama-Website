@@ -148,19 +148,12 @@ overflow: hidden;
                0 10px 10px rgba(0,0,0,.2),
                0 20px 20px rgba(0,0,0,.15);">ברוכים הבאים לדף הרישום של החממה</h1>
     </header>
-    
-    <form class="form" method="post"><br>
-        <label for="role">מנהל?</label>
-        		
-		<input type="checkbox" id="role" name="role" value="manager"><br><br>
+    <form class="form" method="post"><br>        		
         <div class="form__group"> 
-         <input type="text" name="nickname" id="nickname" placeholder="Username" class="form__input" /></div>
-        
+        <input type="text" name="nickname" id="nickname" placeholder="Username" class="form__input" /></div>
         <div class="form__group">
         <input style="margin-top: 1px" type="password" placeholder="Password" class="form__input" name="password" id="password" /></div>
-        
-        <button class="btn" type="submit" formaction="HttpHandler?cmd=register" onclick="approve();" style="border-radius: 50px; margin-top: 30px;">Register</button>
-        <button class="btn" type="submit" formaction="HttpHandler?cmd=login" style="border-radius: 50px; margin-top: 10px">Login</button>
+        <button class="btn" type="submit" formaction="HttpHandler?cmd=login" style="margin-top: 30px; border-radius: 50px; margin-top: 10px">Login</button>
     </form>
 </div>
 

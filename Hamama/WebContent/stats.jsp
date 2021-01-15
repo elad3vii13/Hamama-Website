@@ -30,7 +30,7 @@ select {
     padding: 5px 15px;
 }
 
-button {
+.buttonStyle {
   text-align: center;
   background: -webkit-linear-gradient(right, #a6f77b, #2dbd6e);
   border: none;
@@ -45,8 +45,8 @@ button {
   transition: 0.25s;
   width: 350px;
 }
-
 </style>
+
 </head>
 <body onload="onLoadFunctions();">
 <%@ include file="header.jsp" %>
@@ -71,12 +71,12 @@ button {
     <option value="6">טמפרטורה 3</option>
 </select>
 
-<button style="margin-bottom: 10px;" onclick="addGraph()">הוסף גרף</button>
+<button class="buttonStyle" style="margin-bottom: 10px;" onclick="addGraph()">הוסף גרף</button>
 </div>
  
 <div style="height: 56%; width: 95%; border-radius: 20px; background-color: white; margin: auto; position: fixed; left: 50%; transform: translateX(-50%); box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
 
-<div id="chartContainer" style="margin:30px;"></div>
+<div id="chartContainer" style="margin:30px; position: relative; top: 10%;"></div>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </div>
 </body>
@@ -87,8 +87,8 @@ function onLoadFunctions(){
 	if(!ctx.isLoggedIn())
 	{
 		%>
-		alert("You are not allowed to be here!, Please Log-In or create a new account");
-		window.location.href = "http://localhost:8080/registration.jsp";
+		alert("You are not allowed to be here!, Please Log-In");
+		window.location.href = "http://localhost:8080/login.jsp";
 		<% 
 	}
 	%>
@@ -102,73 +102,32 @@ function addGraph(){
 	var toUnix = new Date(to).valueOf();
 	var sensor = document.getElementById("sensor").value;
 	
-    var result = 'http://localhost:8080/mobile?cmd=measure&sid=' + sensor + '&from=' + fromUnix + '&to=' + toUnix;    
+  var result = 'http://localhost:8080/mobile?cmd=measure&sid=' + sensor + '&from=' + fromUnix + '&to=' + toUnix;    
 
-    // GET THE DATA FROM THE URL
-	/*
-    var dataset;
-    fetch('https://jsonplaceholder.typicode.com/todos/1')
-      .then(response => response.json())
-      .then(data => dataset = data) // this unnecessary
-      .then(json => {
-        //console.log(json);
-        // continue and do something here
-        //alert(JSON.stringify(json));
-    });
-    */
-    
-    /*
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function() {
-    	//console.log(this.responseText);
-    	var result = this.responseText;
-    	createDataPoints(result);
-    };
-    xhr.open('GET', result.toString());
-    xhr.send()
-    */
-
+   
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
-           if (xmlhttp.status == 200) {
-               //alert(xmlhttp.responseText);
-               //var Data = JSON.parse(xmlhttp.responseText);
-               //alert(xmlhttp.responseText.id);
-               //createDatePoints(Date);
-               //alert(xmlhttp.responseText.id);
-               console.log(xmlhttp.responseText);
-               //console.log(JSON.parse(xmlhttp.responseText).measures);
-               //var text = JSON.parse(xmlhttp.responseText);
-           	   //console.log(xmlhttp.responseText.measures.time);
-           	   
-               /*
-               var result = {"id":1,"name":"EC","units":"S/m","measures":"[{\"time\":0,\"sid\":0,\"value\":15.4},{\"time\":0,\"sid\":0,\"value\":15.4},{\"time\":0,\"sid\":0,\"value\":13.0},{\"time\":0,\"sid\":0,\"value\":13.0},{\"time\":0,\"sid\":0,\"value\":12.4},{\"time\":0,\"sid\":0,\"value\":12.4},{\"time\":0,\"sid\":0,\"value\":12.4565},{\"time\":12345,\"sid\":0,\"value\":5.4}]"};
-               var myObj = JSON.parse(result.measures);
-                       
-               var timeArr = [];
-               var valueArr = [];
-               
-               for (i in myObj) {
-               	 timeArr.push(myObj[i].time);
-               	 valueArr.push(myObj[i].value);
-               }*/
-               
+           if (xmlhttp.status == 200) { // The HTTP 200 OK success status response code indicates that the request has succeeded. 
+              
                var result = JSON.parse(xmlhttp.responseText);
                var resultJson = JSON.parse(result.measures);
                
-               timeArr = [];
+               var timeArr = [];
                var valueArr = [];
+               var dps = []; // dataPoints array
                
                for (i in resultJson) {
                  	 timeArr.push(resultJson[i].time);
                  	 valueArr.push(resultJson[i].value);
                }
-               
-               var dps = []; //dataPoints.
-               
-               var chart = new CanvasJS.Chart("chartContainer", {
-               	  axisX: {
+                              
+               var chart = new CanvasJS.Chart("chartContainer", 
+           	   {
+            	   zoomEnabled: true,
+            	   animationEnabled: true,
+            	   
+            	   axisX: {
                	    title: "Dates"
                	  },
                	  axisY: {
@@ -180,7 +139,6 @@ function addGraph(){
                	  }]
                	});
                
-               
                for (var i = dps.length; i < timeArr.length; i++)
                    dps.push({
                      x: new Date(timeArr[i]),
@@ -190,65 +148,12 @@ function addGraph(){
                //parseDataPoints();
                chart.options.data[0].dataPoints = dps;
                chart.render();
-               
-               addDataPoints();
-
-             //Taking user input and adding it to dataPoint
-               //document.getElementById("button").onclick = function(){
-                 //timeArr.push(new Date(document.getElementById("dateValue").value));
-                 //valueArr.push(Number(document.getElementById("yValue").value));
-                 //Call your algorithm here
-                 //addDataPoints();
-               
-               //alert(timeArr.toString() + " // " + valueArr.toString());
            }
         }
     };
 
     xmlhttp.open("GET", result.toString(), true);
-    xmlhttp.send();
-    
-    
+    xmlhttp.send();   
 }
-
-
-    /*
-function createDataPoints(data){
-	//myObj = {"id":1,"name":"EC","units":"S/m","measures":"[{\"time\":1605461248000,\"sid\":0,\"value\":1.0},{\"time\":1605561248000,\"sid\":0,\"value\":5.0},{\"time\":1606361248000,\"sid\":0,\"value\":4.0},{\"time\":1607361248000,\"sid\":0,\"value\":2.0},{\"time\":1608361248000,\"sid\":0,\"value\":7.8}]"};
-	//console.log((myObj).measures);
-	
-	alert(data.id);
-	
-	/*
-	Array value;
-	Array time;
-	
-	var i =0;
-	while(myObj.measures[i].time != null){
-		value.
-		time.
-		i++;
-	}
-	
-	
-	
-	
-	
-	
-	//PARSE DP
-	  for (var i = dps.length; i < dateArray.length; i++)
-	    dps.push({
-	      x: dateArray[i],
-	      y: numberArray[i]
-	    });
-
-	//addDataPoints()
-	  parseDataPoints();
-	  chart.options.data[0].dataPoints = dps;
-	  chart.render();
-
-	addDataPoints();
-	*/
-  
 </script>
 </html>

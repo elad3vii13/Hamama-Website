@@ -86,8 +86,8 @@ function onLoadFunctions(){
 	if(!ctx.isLoggedIn())
 	{
 		%>
-		alert("You are not allowed to be here!, Please Log-In or create a new account");
-		window.location.href = "http://localhost:8080/registration.jsp";
+		alert("You are not allowed to be here!, Please Log-In");
+		window.location.href = "http://localhost:8080/login.jsp";
 		<% 
 	}
 	%>
