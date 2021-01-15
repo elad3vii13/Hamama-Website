@@ -111,9 +111,9 @@ function addGraph(){
       .then(response => response.json())
       .then(data => dataset = data) // this unnecessary
       .then(json => {
-        console.log(json);
+        //console.log(json);
         // continue and do something here
-        alert(JSON.stringify(json));
+        //alert(JSON.stringify(json));
     });
     */
     
@@ -127,9 +127,8 @@ function addGraph(){
     xhr.open('GET', result.toString());
     xhr.send()
     */
-    
-    var xmlhttp = new XMLHttpRequest();
 
+    var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
            if (xmlhttp.status == 200) {
@@ -139,16 +138,81 @@ function addGraph(){
                //createDatePoints(Date);
                //alert(xmlhttp.responseText.id);
                console.log(xmlhttp.responseText);
-               console.log(JSON.parse(xmlhttp.responseText).id);
+               //console.log(JSON.parse(xmlhttp.responseText).measures);
+               //var text = JSON.parse(xmlhttp.responseText);
+           	   //console.log(xmlhttp.responseText.measures.time);
+           	   
+               /*
+               var result = {"id":1,"name":"EC","units":"S/m","measures":"[{\"time\":0,\"sid\":0,\"value\":15.4},{\"time\":0,\"sid\":0,\"value\":15.4},{\"time\":0,\"sid\":0,\"value\":13.0},{\"time\":0,\"sid\":0,\"value\":13.0},{\"time\":0,\"sid\":0,\"value\":12.4},{\"time\":0,\"sid\":0,\"value\":12.4},{\"time\":0,\"sid\":0,\"value\":12.4565},{\"time\":12345,\"sid\":0,\"value\":5.4}]"};
+               var myObj = JSON.parse(result.measures);
+                       
+               var timeArr = [];
+               var valueArr = [];
+               
+               for (i in myObj) {
+               	 timeArr.push(myObj[i].time);
+               	 valueArr.push(myObj[i].value);
+               }*/
+               
+               var result = JSON.parse(xmlhttp.responseText);
+               var resultJson = JSON.parse(result.measures);
+               
+               timeArr = [];
+               var valueArr = [];
+               
+               for (i in resultJson) {
+                 	 timeArr.push(resultJson[i].time);
+                 	 valueArr.push(resultJson[i].value);
+               }
+               
+               var dps = []; //dataPoints.
+               
+               var chart = new CanvasJS.Chart("chartContainer", {
+               	  axisX: {
+               	    title: "Dates"
+               	  },
+               	  axisY: {
+               	    title: "Values"
+               	  },
+               	  data: [{
+               	    type: "line",
+               	    dataPoints: dps
+               	  }]
+               	});
+               
+               
+               for (var i = dps.length; i < timeArr.length; i++)
+                   dps.push({
+                     x: new Date(timeArr[i]),
+                     y: valueArr[i]
+                   });
+               
+               //parseDataPoints();
+               chart.options.data[0].dataPoints = dps;
+               chart.render();
+               
+               addDataPoints();
+
+             //Taking user input and adding it to dataPoint
+               //document.getElementById("button").onclick = function(){
+                 //timeArr.push(new Date(document.getElementById("dateValue").value));
+                 //valueArr.push(Number(document.getElementById("yValue").value));
+                 //Call your algorithm here
+                 //addDataPoints();
+               
+               //alert(timeArr.toString() + " // " + valueArr.toString());
            }
         }
     };
 
     xmlhttp.open("GET", result.toString(), true);
     xmlhttp.send();
+    
+    
 }
 
 
+    /*
 function createDataPoints(data){
 	//myObj = {"id":1,"name":"EC","units":"S/m","measures":"[{\"time\":1605461248000,\"sid\":0,\"value\":1.0},{\"time\":1605561248000,\"sid\":0,\"value\":5.0},{\"time\":1606361248000,\"sid\":0,\"value\":4.0},{\"time\":1607361248000,\"sid\":0,\"value\":2.0},{\"time\":1608361248000,\"sid\":0,\"value\":7.8}]"};
 	//console.log((myObj).measures);
@@ -185,7 +249,6 @@ function createDataPoints(data){
 
 	addDataPoints();
 	*/
-}
   
 </script>
 </html>
