@@ -45,6 +45,7 @@ th,td {
 }
 
  table {
+   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5);
    margin-top: 100px;
    margin: 0 auto;
    align="center";
@@ -105,8 +106,13 @@ button {
 <button style="margin-bottom: 10px;" onclick="getHistory()">הוסף גרף</button>
 </div>
 
- <div style="display:flex;justify-content:center;align-items:center;margin-top: 60px">
+ <div style="display:flex;justify-content:center;align-items:center; margin-top: 60px;">
             <table id="Board"></table>
+ </div>
+
+<!-- SPACE AFTER THE TABLE --> 
+ <div style="height: 70px;">
+            
  </div>
 
 <script>
@@ -186,7 +192,6 @@ function getHistory(){
                    string_final += "<td>" + result[i].time + "</td>";
             	   string_final += "</tr>";
                }
-              //console.log(string_final);
               document.getElementById("Board").innerHTML = string_final;
            }
         }

@@ -27,8 +27,8 @@ body {
 <body>
 <%@ include file="header.jsp" %>
 
-<img style="float: left; width: 30%; height: 96%;" alt="sd" src="images/bg1.jpg">
-<div style="float:right; width: 60%">
+<img style="float: left; width: 30%; height: 100%;" alt="sd" src="images/bg1.jpg">
+<div style="float:right; width: 70%">
 <header style="margin-top: 30px; text-align: center; margin-left: 190px; margin-right: 190px; font-weight: bold; color: white; font-size: 70px; text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1),0 0 5px rgba(0,0,0,.1),0 1px 3px rgba(0,0,0,.3),0 3px 5px rgba(0,0,0,.2),0 5px 10px rgba(0,0,0,.25),0 10px 10px rgba(0,0,0,.2),0 20px 20px rgba(0,0,0,.15);">
 ברוכים הבאים למסך הבית של אתר החממה
 </header>	
