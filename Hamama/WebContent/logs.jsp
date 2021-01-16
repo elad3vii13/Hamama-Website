@@ -140,9 +140,7 @@ function getHistory(){
 	else {
 	    var result = 'http://localhost:8080/mobile?cmd=log&sid=' + sensor + '&from=' + fromUnix + '&to=' + toUnix + '&priority=' + priority;  
 	}
-    
-	//console.log(result);
-	
+    	
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
@@ -156,7 +154,33 @@ function getHistory(){
               
                for (i in result) {
             	   string_final += "<tr>";
-                   string_final += "<td>" + result[i].sid + "</td>";
+            	   
+            	   var sensorName;
+            	   switch(result[i].sid) {
+            	   case 1:
+            		 sensorName = "מוליכות";
+            	     break;
+            	   case 2:
+            		 sensorName = "חומציות";
+            	     break;
+            	   case 3:
+            		 sensorName = "עריכות";
+              	     break;
+            	   case 4:
+            		 sensorName = "טמפרטורה 1";
+              	     break;
+            	   case 5:
+              		 sensorName = "טמפרטורה 2";
+              	     break;
+            	   case 6:
+              		 sensorName = "טמפרטורה 3";
+              	     break;
+            	   default:
+            	     sensorName = "?";
+            	     break;
+            	 }
+            	   
+                   string_final += "<td>" + sensorName + "</td>";
                    string_final += "<td>" + result[i].message + "</td>";
                    string_final += "<td>" + result[i].priority + "</td>";
                    string_final += "<td>" + result[i].time + "</td>";
