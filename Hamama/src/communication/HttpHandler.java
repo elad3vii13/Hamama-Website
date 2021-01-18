@@ -52,6 +52,10 @@ public class HttpHandler extends HttpServlet {
 			case "logout":
 				ctx.handleLogout();
 				break;
+			case "deleteUser":
+				String nickname = request.getParameter("nickname");
+				ctx.deleteUser(nickname);
+				break;
 			case "other":
 				response.getWriter().print("<p style='font-size: 24px'>not supported yet!!!</p>");
 			

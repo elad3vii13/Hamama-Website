@@ -97,7 +97,6 @@ public class MySQLDB {
 				   			  }
 	}
 	
-	
 
 	public List<User> getAllUsers()
 	{

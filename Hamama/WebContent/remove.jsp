@@ -1,4 +1,3 @@
-<%@page import="com.sun.net.httpserver.HttpHandler"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -146,26 +145,15 @@ overflow: hidden;
                0 3px 5px rgba(0,0,0,.2),
                0 5px 10px rgba(0,0,0,.25),
                0 10px 10px rgba(0,0,0,.2),
-               0 20px 20px rgba(0,0,0,.15);">ברוכים הבאים לדף הרישום של החממה</h1>
+               0 20px 20px rgba(0,0,0,.15);">הזן את שם המשתמש שברצונך להסיר</h1>
     </header>
     
-    <form class="form" method="post"><br>
-        <label for="role">מנהל?</label>
-        		
-		<input type="checkbox" id="role" name="role" value="manager"><br><br>
-        <div class="form__group"> 
-        <input type="text" name="nickname" id="nickname" placeholder="Username" class="form__input" /></div>
+        <form class="form" method="post"><br>   
+             
+        <div class="form__group">
+         <input type="text" name="nickname" id="nickname" placeholder="Username" class="form__input" /></div>
         
-        <input style="margin-top: 1px" type="password" placeholder="Password" class="form__input" name="password" id="password" />
-        
-        <button class="btn" type="submit" formaction="HttpHandler?cmd=register" onclick="approve();" style="border-radius: 50px; margin-top: 30px;">Register</button>
+        <button class="btn" type="submit" formaction="HttpHandler?cmd=deleteUser" onclick="approve();" style="border-radius: 50px; margin-top: 30px;">REMOVE</button>
     </form>
-</div>
-
-<script>
-function approve(){
-	window.alert("Thank you for registering");
-}
-</script>
 </body>
 </html>

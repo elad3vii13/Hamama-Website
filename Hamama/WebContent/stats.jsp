@@ -48,8 +48,13 @@ select {
 </style>
 
 </head>
-<body onload="onLoadFunctions();">
+<body>
 <%@ include file="header.jsp" %>
+<% 
+	if(!ctx.isLoggedIn()){
+		ctx.insertAlertDlg("You are not allowed to access this page, you are forwarded to the home page", "home.jsp");
+	}
+%>
 
 <div class="upperDiv" style="height: 30%; width: 95%; border-radius: 20px; background-color: white; margin: 20px auto; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
 
@@ -81,18 +86,6 @@ select {
 </div>
 </body>
 <script>
-
-function onLoadFunctions(){
-	<% 
-	if(!ctx.isLoggedIn())
-	{
-		%>
-		alert("You are not allowed to be here!, Please Log-In");
-		window.location.href = "http://localhost:8080/login.jsp";
-		<% 
-	}
-	%>
-}
 
 function addGraph(){
 	

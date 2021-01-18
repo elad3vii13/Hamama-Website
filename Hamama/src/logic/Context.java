@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -29,17 +30,30 @@ public class Context {
 	PrintWriter out;
 	static MySQLDB dbc= new MySQLDB();
 	
-	
 	private final String SESSION_KEY_USER= "currentUser";
 	private final String SESSION_KEY_MANAGER= "isManager";
 	
-//used mainly from JSP	
+	public List<User> getAllUseList() {
+		return dbc.getAllUsers();
+	}
+	
+	public void deleteUser(String username) {
+		dbc.DeleteUser(username);
+		try {
+			response.sendRedirect("management.jsp");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	//used mainly from JSP	
 	public Context(PageContext pContext) throws Exception {
 		this((HttpServletRequest)pContext.getRequest(), 
 				(HttpServletResponse)pContext.getResponse());
 	}
 	
-//used mainly from servlets...
+	//used mainly from servlets...
 	public Context(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		this.request = request;
 		
@@ -77,6 +91,7 @@ public class Context {
 			e.printStackTrace();
 		}
 	}
+	
 	public boolean isLoggedIn(){
 		return (this.session.getAttribute(SESSION_KEY_USER)!= null);
 	}
