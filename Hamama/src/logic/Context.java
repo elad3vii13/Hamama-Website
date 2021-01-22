@@ -120,7 +120,7 @@ public class Context {
 			}
 			else {
 				 request.setAttribute("error",  "×©×� ×”×ž×©×ª×ž×© ×�×• ×”×¡×™×¡×ž×� ×�×™× ×� × ×›×•× ×™×�, ×�× ×� × ×¡×” ×©×•×‘");
-				 request.getRequestDispatcher("registration.jsp").forward(request, response);
+				 request.getRequestDispatcher("login.jsp").forward(request, response);
 		
 			}
 		} catch (IOException | ServletException e) {

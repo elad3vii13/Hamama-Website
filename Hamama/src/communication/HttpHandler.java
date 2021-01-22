@@ -68,8 +68,7 @@ public class HttpHandler extends HttpServlet {
 			default:
 				ctx.handleUnknownRequest();
 			}
-		}
-			
+		}	
 	}
 
 	/**
