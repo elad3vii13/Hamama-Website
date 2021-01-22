@@ -10,7 +10,7 @@
 
 <style>
 body {
-	overflow: hidden;
+    margin-bottom: 100px;
     font-family: $font-family;
     font-size: $font-size;
     background-size: 200% 100% !important;
@@ -30,6 +30,7 @@ th,td {
  table {
    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5);
    margin-top: 100px;
+   margin-bottom: 100px;
    margin: 0 auto;
    align="center";
    outline: 10px black;
@@ -48,8 +49,8 @@ text-align:center;
 }
 
 button {
-    margin:10px auto;
-    display:block;
+  margin:10px auto;
+  display:block;
   text-align: center;
   background: -webkit-linear-gradient(right, #a6f77b, #2dbd6e);
   border: none;
@@ -70,6 +71,7 @@ button {
 <button style="box-shadow: 0 5px 6px -4px rgba(0,0,0,0.22), 0 10px 13px -4px rgba(0,0,0,0.34), inset 0 30px 30px 0 rgba(255,255,255,0.35), inset 0 -30px 30px 0 rgba(0,0,0,0.10); margin-top: 40px; font: 30px;" onclick="location.href='http://localhost:8080/registration.jsp'">רשום משתמש חדש</button>
 <button style="box-shadow: 0 5px 6px -4px rgba(0,0,0,0.22), 0 10px 13px -4px rgba(0,0,0,0.34), inset 0 30px 30px 0 rgba(255,255,255,0.35), inset 0 -30px 30px 0 rgba(0,0,0,0.10); margin-top: 15px; font: 30px;" onclick="location.href='http://localhost:8080/remove.jsp'">הסר משתמש רשום</button>
 <button style="box-shadow: 0 5px 6px -4px rgba(0,0,0,0.22), 0 10px 13px -4px rgba(0,0,0,0.34), inset 0 30px 30px 0 rgba(255,255,255,0.35), inset 0 -30px 30px 0 rgba(0,0,0,0.10); margin-top: 15px; font: 30px;" onclick="createATable()">צפה במשתמשים הרשומים </button>
+<button style="box-shadow: 0 5px 6px -4px rgba(0,0,0,0.22), 0 10px 13px -4px rgba(0,0,0,0.34), inset 0 30px 30px 0 rgba(255,255,255,0.35), inset 0 -30px 30px 0 rgba(0,0,0,0.10); margin-top: 15px; font: 30px;" onclick="getSensorList()">צפה ברשימת החיישנים </button>
 
 <div style="display:flex;justify-content:center;align-items:center; margin-top: 60px;">
             <table id="Board"></table>
@@ -80,9 +82,8 @@ button {
 
 function createATable(){
 	  <% List<User> users= ctx.getAllUseList();
-	  int size = users.size();%>
+	  int size = users.size();
 	  	  
-      <%
       String string_final = "";
       string_final += "<tr><th class=table-header>id</th><th class=table-header>nickname</th><th class=table-header>password</th><th class=table-header>role</th></tr>";
 
@@ -93,10 +94,44 @@ function createATable(){
        string_final += "<td>" + users.get(i).getPassword() + "</td>";
        string_final += "<td>" + users.get(i).getRole() + "</td>";
 	   string_final += "</tr>";
-      }
-      %>
+      } %>
       
       document.getElementById("Board").innerHTML = '<%=string_final %>';
 }	
+
+function getSensorList(){
+	var result = 'http://localhost:8080/mobile?cmd=sensors';    
+	
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
+           if (xmlhttp.status == 200) { // The HTTP 200 OK success status response code indicates that the request has succeeded. 
+               
+        	   var sensorsJson = JSON.parse(xmlhttp.responseText);
+               var string_final = "";
+               string_final += "<tr><th class=table-header>id</th><th class=table-header>Name</th><th class=table-header>units</th></tr>";
+               
+           	   for(i in sensorsJson){
+           			string_final += "<tr>";
+	   
+                   string_final += "<td>" + sensorsJson[i].id + "</td>";
+                   string_final += "<td>" + sensorsJson[i].displayName + "</td>";
+                   
+           		   if(sensorsJson[i].units == "")
+                       string_final += "<td>NONE</td>";
+           		   else
+                       string_final += "<td>" + sensorsJson[i].units + "</td>";
+                       
+            	   string_final += "</tr>";
+           	   }
+           	   
+               document.getElementById("Board").innerHTML = string_final;
+           }
+        }
+    }
+    
+    xmlhttp.open("GET", result.toString(), true);
+    xmlhttp.send();
+}
 </script>
 </html>

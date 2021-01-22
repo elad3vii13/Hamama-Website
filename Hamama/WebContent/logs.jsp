@@ -143,10 +143,12 @@ function getHistory(){
         if (xmlhttp.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
            if (xmlhttp.status == 200) { // The HTTP 200 OK success status response code indicates that the request has succeeded. 
      	   	
+        	   alert(alert());
+        	   
                var result = JSON.parse(xmlhttp.responseText);
                // alert(result[0].message);
-               
-              var string_final = "";
+
+               var string_final = "";
               string_final += "<tr><th class=table-header>sid</th><th class=table-header>message</th><th class=table-header>priority</th><th class=table-header>time</th></tr>";
               
                for (i in result) {

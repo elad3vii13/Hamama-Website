@@ -58,10 +58,8 @@ public class DBHelper {
 			System.out.println("SQLException: " + ex.getMessage());
 			throw new Exception("bad new-Log command");
 			}			
-
 	}
-
-
+	
 	public ArrayList<Measure> getMeasures(int sid, long from, long to){ 
 		Statement statement; 
 		String	sqlString = "SELECT * FROM measures where sid=" + sid +
