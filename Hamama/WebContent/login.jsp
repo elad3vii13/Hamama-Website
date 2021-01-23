@@ -11,7 +11,6 @@
 <style>
 .user__title {
 	text-shadow: 0 1px 0 #ccc, 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15);
-    margin-bottom: -10px;
     font-weight: 500;
     color: white;
 }
