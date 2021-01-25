@@ -73,7 +73,7 @@ button {
 
 </style>
 </head>
-<body>
+<body onload=" getUpdatedSensorList()">
 <%@ include file="header.jsp" %>
 <% if(!ctx.isLoggedIn())
 		ctx.insertAlertDlg("You are not allowed to access this page, you are forwarded to the home page", "home.jsp");%>
@@ -87,15 +87,21 @@ button {
 	<header style="margin-top: 10px; margin-right: 30px;">עד תאריך:</header>
 	<input type="datetime-local" id="toValue" name="to" value="2021-01-1T19:30" style="width: 30%; margin-right: 30px"></input>
 	
-	<select name="sensor" id="sensor" style="width: 30%; margin-right: 30px; margin-top: 10px" dir="rtl"> 
-	    <option value="0">כל החיישנים</option>
-	    <option value="1">מוליכות</option>
-	    <option value="2">חומציות</option>
-	    <option value="3">עריכות</option>
-	    <option value="4">טמפרטורה 1</option>
-	    <option value="5">טמפרטורה 2</option>
-	    <option value="6">טמפרטורה 3</option>
-	</select>
+	<form>
+		<select name="sensor" id="sensor" style="width: 30%; margin-right: 30px; margin-top: 10px" dir="rtl"> 
+		    <option value="0">--בחר חיישן--</option>
+		    
+		    <!-- 
+		    <option value="1">מוליכות</option>
+		    <option value="2">חומציות</option>
+		    <option value="3">עריכות</option>
+		    <option value="4">טמפרטורה 1</option>
+		    <option value="5">טמפרטורה 2</option>
+		    <option value="6">טמפרטורה 3</option>  
+		    -->
+		    
+		</select>
+	</form>
 	
 	<select name="priority" id="priority" style="width: 30%; margin-right: 30px; margin-top: 10px" dir="rtl"> 
 	    <option value="0">--בחר עדיפות--</option>
@@ -138,11 +144,8 @@ function getHistory(){
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
            if (xmlhttp.status == 200) { // The HTTP 200 OK success status response code indicates that the request has succeeded. 
-     	   	
-        	   alert(alert());
-        	   
+     	   	        	   
                var result = JSON.parse(xmlhttp.responseText);
-               // alert(result[0].message);
 
                var string_final = "";
               string_final += "<tr><th class=table-header>sid</th><th class=table-header>message</th><th class=table-header>priority</th><th class=table-header>time</th></tr>";
@@ -186,9 +189,33 @@ function getHistory(){
         }
     };
 
-    xmlhttp.open("GET", result.toString(), true);
-    xmlhttp.send();   
-}
+	    xmlhttp.open("GET", result.toString(), true);
+	    xmlhttp.send();   
+	}
+	
+	function getUpdatedSensorList() {
+		  var x = document.getElementById("sensor");
+		  
+		  var result = 'http://localhost:8080/mobile?cmd=sensors';    
+			
+		    var xmlhttp = new XMLHttpRequest();
+		    xmlhttp.onreadystatechange = function() {
+		        if (xmlhttp.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
+		           if (xmlhttp.status == 200) { // The HTTP 200 OK success status response code indicates that the request has succeeded. 
+		               
+		        	   var sensorsJson = JSON.parse(xmlhttp.responseText);
+		           	   for(i in sensorsJson){
+		             	  var option = document.createElement("option");
+		            	  option.text = sensorsJson[i].displayName;
+		            	  x.add(option);
+		           	   }	
+		           }
+		        }
+		    }
+		    
+		    xmlhttp.open("GET", result.toString(), true);
+		    xmlhttp.send();
+	}
 </script>
 </body>
 </html>

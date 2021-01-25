@@ -48,7 +48,7 @@ select {
 </style>
 
 </head>
-<body>
+<body onload=" getUpdatedSensorList()">
 <%@ include file="header.jsp" %>
 <% 
 	if(!ctx.isLoggedIn()){
@@ -66,15 +66,21 @@ select {
 <header style="float: left; margin-top: 30px; margin-right: 30px;">עד תאריך:</header>
 <input type="datetime-local" id="toValue" name="to" value="2021-01-1T19:30" style="width: 30%; margin-right: 30px"></input>
 
-<select name="sensor" id="sensor" style="width: 30%; margin-right: 30px; margin-top: 10px" dir="rtl"> 
-    <option value="0">--בחר חיישן--</option>
-    <option value="1">מוליכות</option>
-    <option value="2">חומציות</option>
-    <option value="3">עריכות</option>
-    <option value="4">טמפרטורה 1</option>
-    <option value="5">טמפרטורה 2</option>
-    <option value="6">טמפרטורה 3</option>
-</select>
+<form>
+	<select name="sensor" id="sensor" style="width: 30%; margin-right: 30px; margin-top: 10px" dir="rtl"> 
+	    <option value="0">--בחר חיישן--</option>
+	    
+	    <!-- 
+	    <option value="1">מוליכות</option>
+	    <option value="2">חומציות</option>
+	    <option value="3">עריכות</option>
+	    <option value="4">טמפרטורה 1</option>
+	    <option value="5">טמפרטורה 2</option>
+	    <option value="6">טמפרטורה 3</option>  
+	    -->
+	    
+	</select>
+</form>
 
 <button class="buttonStyle" style="margin-bottom: 10px;" onclick="addGraph()">הוסף גרף</button>
 </div>
@@ -84,7 +90,6 @@ select {
 <div id="chartContainer" style="margin:30px; position: relative; top: 10%;"></div>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </div>
-</body>
 <script>
 
 function addGraph(){
@@ -148,5 +153,30 @@ function addGraph(){
     xmlhttp.open("GET", result.toString(), true);
     xmlhttp.send();
 }
+
+function getUpdatedSensorList() {
+	  var x = document.getElementById("sensor");
+	  
+	  var result = 'http://localhost:8080/mobile?cmd=sensors';    
+		
+	    var xmlhttp = new XMLHttpRequest();
+	    xmlhttp.onreadystatechange = function() {
+	        if (xmlhttp.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
+	           if (xmlhttp.status == 200) { // The HTTP 200 OK success status response code indicates that the request has succeeded. 
+	               
+	        	   var sensorsJson = JSON.parse(xmlhttp.responseText);
+	           	   for(i in sensorsJson){
+	             	  var option = document.createElement("option");
+	            	  option.text = sensorsJson[i].displayName;
+	            	  x.add(option);
+	           	   }	
+	           }
+	        }
+	    }
+	    
+	    xmlhttp.open("GET", result.toString(), true);
+	    xmlhttp.send();
+	}
 </script>
+</body>
 </html>
