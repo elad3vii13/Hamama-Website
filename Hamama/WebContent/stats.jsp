@@ -46,7 +46,7 @@ select {
   width: 350px;
 }
 </style>
-
+<script type="text/javascript" src="script.js"></script>
 </head>
 <body onload=" getUpdatedSensorList()">
 <%@ include file="header.jsp" %>
@@ -69,16 +69,6 @@ select {
 <form>
 	<select name="sensor" id="sensor" style="width: 30%; margin-right: 30px; margin-top: 10px" dir="rtl"> 
 	    <option value="0">--בחר חיישן--</option>
-	    
-	    <!-- 
-	    <option value="1">מוליכות</option>
-	    <option value="2">חומציות</option>
-	    <option value="3">עריכות</option>
-	    <option value="4">טמפרטורה 1</option>
-	    <option value="5">טמפרטורה 2</option>
-	    <option value="6">טמפרטורה 3</option>  
-	    -->
-	    
 	</select>
 </form>
 
@@ -90,93 +80,5 @@ select {
 <div id="chartContainer" style="margin:30px; position: relative; top: 10%;"></div>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </div>
-<script>
-
-function addGraph(){
-	var from = document.getElementById("fromValue").value;
-	var fromUnix = new Date(from).valueOf();
-	
-	var to = document.getElementById("toValue").value;
-	var toUnix = new Date(to).valueOf();
-	var sensor = document.getElementById("sensor").value;
-	
-	var result = 'http://localhost:8080/mobile?cmd=measure&sid=' + sensor + '&from=' + fromUnix + '&to=' + toUnix;    
-   
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
-        if (xmlhttp.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
-           if (xmlhttp.status == 200) { // The HTTP 200 OK success status response code indicates that the request has succeeded. 
-              
-               var result = JSON.parse(xmlhttp.responseText);
-               var resultJson = JSON.parse(result.measures);
-               
-               var timeArr = [];
-               var valueArr = [];
-               var dps = []; // dataPoints array
-               
-               for (i in resultJson) {
-                 	 timeArr.push(resultJson[i].time);
-                 	 valueArr.push(resultJson[i].value);
-               }
-                              
-               var chart = new CanvasJS.Chart("chartContainer", 
-           	   {
-            	   zoomEnabled: true,
-            	   animationEnabled: true,
-            	   
-            	   axisX: {
-               	    title: "Dates"
-               	  },
-               	  axisY: {
-               	    title: "Values"
-               	  },
-               	  data: [{
-               	    type: "line",
-               	    dataPoints: dps
-               	  }]
-               	});
-               
-               for (var i = dps.length; i < timeArr.length; i++)
-                   dps.push({
-                     x: new Date(timeArr[i]),
-                     y: valueArr[i]
-                   });
-               
-               //parseDataPoints();
-               chart.options.data[0].dataPoints = dps;
-               chart.render();
-           }
-        }
-    };
-
-    xmlhttp.open("GET", result.toString(), true);
-    xmlhttp.send();
-}
-
-function getUpdatedSensorList() {
-	  var x = document.getElementById("sensor");
-	  
-	  var result = 'http://localhost:8080/mobile?cmd=sensors';    
-		
-	    var xmlhttp = new XMLHttpRequest();
-	    xmlhttp.onreadystatechange = function() {
-	        if (xmlhttp.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
-	           if (xmlhttp.status == 200) { // The HTTP 200 OK success status response code indicates that the request has succeeded. 
-	               
-	        	   var sensorsJson = JSON.parse(xmlhttp.responseText);
-	           	   for(i in sensorsJson){
-	             	  var option = document.createElement("option");
-	            	  option.text = sensorsJson[i].displayName;
-	            	  option.value = i+1;
-	            	  x.add(option);
-	           	   }	
-	           }
-	        }
-	    }
-	    
-	    xmlhttp.open("GET", result.toString(), true);
-	    xmlhttp.send();
-	}
-</script>
 </body>
 </html>

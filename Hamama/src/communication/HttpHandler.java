@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import logic.Context;
+import logic.Util;
 
 /**
  * Servlet implementation class HttpHandler
@@ -60,6 +61,24 @@ public class HttpHandler extends HttpServlet {
 				response.getWriter().print("<p style='font-size: 24px'>not supported yet!!!</p>");
 			
 				break;
+				
+			  case "measure":
+				  String result = Util.getMeasures(request);
+				  
+				  response.getWriter().print(result);
+				  break;
+				  
+			  case "sensors":
+				  String resultSensors = Util.getAllSensors(request);
+				
+				  response.setContentType("application/json");
+				  response.getWriter().print(resultSensors);
+				  break;
+				  
+			  case "log":
+				  Util.getLogEntries(request, response);
+				  break;
+				  
 			case "uploadFile":
 				/* String filename1= uploadTheFile(request, "file1", UPLOAD_FOLDER);*/
 				/*String other = request.getParameter("other");*/

@@ -1,6 +1,7 @@
 package logic;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -55,6 +56,9 @@ public class Util {
 			String priority = request.getParameter("priority");
 			 if (from == null || to == null)
 				  throw new Exception("bad get log command");
+			 
+			 HashMap<Integer, String> sensors = myDB.getAllSensorsNames();
+			 
 			ArrayList<Log> list = myDB.getLogEntries(sid, Long.parseLong(from), Long.parseLong(to), priority);
 			Type listType = new TypeToken<ArrayList<Log>>() {}.getType();
 			Gson gson = new Gson(); 

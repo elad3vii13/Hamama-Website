@@ -5,6 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DBHelper {
 	static Connection con;
@@ -84,6 +86,24 @@ public class DBHelper {
 
 	} 
 	
+	public HashMap<Integer, String> getAllSensorsNames(){
+		Statement statement; 
+		String	sqlString = "SELECT * FROM sensors" ;
+		try {
+			statement = con.createStatement(); 
+			ResultSet rs=statement.executeQuery(sqlString);
+			HashMap<Integer, String>result = new HashMap<Integer, String>();
+			while (rs.next()) {
+				result.put(rs.getInt("id"), rs.getString("displayName"));
+			}
+			return result;
+		}catch(SQLException ex) {
+			System.out.println("SQLException: " + ex.getMessage()); 
+			return null; 
+		}
+			
+	}
+		
 	public ArrayList<Log> getLogEntries(String sid, long from, long to, String priority){ 
 		Statement statement; 
 		String filter ="where time between " + from + " and " + to;

@@ -1,4 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+    <option value="0">--בחר חיישן--</option>
+    <option value="1">מוליכות</option>
+    <option value="2">חומציות</option>
+    <option value="3">עריכות</option>
+    <option value="4">טמפרטורה 1</option>
+    <option value="5">טמפרטורה 2</option>
+    <option value="6">טמפרטורה 3</option><%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -44,9 +50,6 @@ body {
 </head>
 <body>
 	<%@ include file="header.jsp" %>
-	<% if(!ctx.isLoggedIn() || !ctx.isManager())
-		ctx.insertAlertDlg("You are not allowed to access this page, you are forwarded to the home page", "home.jsp");%>
-	
 	
 	<div style="max-width: 340px; margin: 10vh auto;">
     <header style="text-align: center;">

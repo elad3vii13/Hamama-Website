@@ -72,6 +72,7 @@ button {
 }
 
 </style>
+<script type="text/javascript" src="script.js"></script>
 </head>
 <body onload=" getUpdatedSensorList()">
 <%@ include file="header.jsp" %>
@@ -89,22 +90,12 @@ button {
 	
 	<form>
 		<select name="sensor" id="sensor" style="width: 30%; margin-right: 30px; margin-top: 10px" dir="rtl"> 
-		    <option value="0">--בחר חיישן--</option>
-		    
-		    <!-- 
-		    <option value="1">מוליכות</option>
-		    <option value="2">חומציות</option>
-		    <option value="3">עריכות</option>
-		    <option value="4">טמפרטורה 1</option>
-		    <option value="5">טמפרטורה 2</option>
-		    <option value="6">טמפרטורה 3</option>  
-		    -->
-		    
+		    <option value="0">כל החיישנים</option>
 		</select>
 	</form>
 	
 	<select name="priority" id="priority" style="width: 30%; margin-right: 30px; margin-top: 10px" dir="rtl"> 
-	    <option value="0">--בחר עדיפות--</option>
+	    <option value="0">כל העדיפויות</option>
 	    <option value="error">תקלה</option>
 	    <option value="warning">אזהרה</option>
 	    <option value="info">ידיעה</option>
@@ -119,104 +110,6 @@ button {
 
 <!-- SPACE AFTER THE TABLE --> 
 <div style="height: 50px;">
- </div>
-
-<script>
-function getHistory(){
-	var from = document.getElementById("fromValue").value;
-	var fromUnix = new Date(from).valueOf();
-	
-	var to = document.getElementById("toValue").value;
-	var toUnix = new Date(to).valueOf();
-	
-	var sensor = document.getElementById("sensor").value;
-	var priority = document.getElementById("priority").value;
-	
-	if(sensor==0) {
-    	var result = 'http://localhost:8080/mobile?cmd=log&from=' + fromUnix + '&to=' + toUnix + '&priority=' + priority;    
-
-	}
-	else {
-	    var result = 'http://localhost:8080/mobile?cmd=log&sid=' + sensor + '&from=' + fromUnix + '&to=' + toUnix + '&priority=' + priority;  
-	}
-    	
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
-        if (xmlhttp.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
-           if (xmlhttp.status == 200) { // The HTTP 200 OK success status response code indicates that the request has succeeded. 
-     	   	        	   
-               var result = JSON.parse(xmlhttp.responseText);
-
-               var string_final = "";
-              string_final += "<tr><th class=table-header>sid</th><th class=table-header>message</th><th class=table-header>priority</th><th class=table-header>time</th></tr>";
-              
-               for (i in result) {
-            	   string_final += "<tr>";
-            	   
-            	   var sensorName;
-            	   switch(result[i].sid) {
-            	   case 1:
-            		 sensorName = "מוליכות";
-            	     break;
-            	   case 2:
-            		 sensorName = "חומציות";
-            	     break;
-            	   case 3:
-            		 sensorName = "עריכות";
-              	     break;
-            	   case 4:
-            		 sensorName = "טמפרטורה 1";
-              	     break;
-            	   case 5:
-              		 sensorName = "טמפרטורה 2";
-              	     break;
-            	   case 6:
-              		 sensorName = "טמפרטורה 3";
-              	     break;
-            	   default:
-            	     sensorName = "?";
-            	     break;
-            	 }
-            	   
-                   string_final += "<td>" + sensorName + "</td>";
-                   string_final += "<td>" + result[i].message + "</td>";
-                   string_final += "<td>" + result[i].priority + "</td>";
-                   string_final += "<td>" + result[i].time + "</td>";
-            	   string_final += "</tr>";
-               }
-              document.getElementById("Board").innerHTML = string_final;
-           }
-        }
-    };
-
-	    xmlhttp.open("GET", result.toString(), true);
-	    xmlhttp.send();   
-	}
-	
-	function getUpdatedSensorList() {
-		  var x = document.getElementById("sensor");
-		  
-		  var result = 'http://localhost:8080/mobile?cmd=sensors';    
-			
-		    var xmlhttp = new XMLHttpRequest();
-		    xmlhttp.onreadystatechange = function() {
-		        if (xmlhttp.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
-		           if (xmlhttp.status == 200) { // The HTTP 200 OK success status response code indicates that the request has succeeded. 
-		               
-		        	   var sensorsJson = JSON.parse(xmlhttp.responseText);
-		           	   for(i in sensorsJson){
-		             	  var option = document.createElement("option");
-		            	  option.text = sensorsJson[i].displayName;
-		            	  option.value = i+1;
-		            	  x.add(option);
-		           	   }	
-		           }
-		        }
-		    }
-		    
-		    xmlhttp.open("GET", result.toString(), true);
-		    xmlhttp.send();
-	}
-</script>
+</div>
 </body>
 </html>
