@@ -207,6 +207,7 @@ function getHistory(){
 		           	   for(i in sensorsJson){
 		             	  var option = document.createElement("option");
 		            	  option.text = sensorsJson[i].displayName;
+		            	  option.value = i+1;
 		            	  x.add(option);
 		           	   }	
 		           }

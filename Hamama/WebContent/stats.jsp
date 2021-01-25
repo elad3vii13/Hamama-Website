@@ -93,7 +93,6 @@ select {
 <script>
 
 function addGraph(){
-	
 	var from = document.getElementById("fromValue").value;
 	var fromUnix = new Date(from).valueOf();
 	
@@ -168,6 +167,7 @@ function getUpdatedSensorList() {
 	           	   for(i in sensorsJson){
 	             	  var option = document.createElement("option");
 	            	  option.text = sensorsJson[i].displayName;
+	            	  option.value = i+1;
 	            	  x.add(option);
 	           	   }	
 	           }

@@ -44,6 +44,9 @@ body {
 </head>
 <body>
 	<%@ include file="header.jsp" %>
+	<% if(!ctx.isLoggedIn() || !ctx.isManager())
+		ctx.insertAlertDlg("You are not allowed to access this page, you are forwarded to the home page", "home.jsp");%>
+	
 	
 	<div style="max-width: 340px; margin: 10vh auto;">
     <header style="text-align: center;">
