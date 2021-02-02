@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import logic.Util;
+import logic.Context;
 import model.DBHelper;
 import model.Log;
 import model.Measure;
@@ -26,11 +26,11 @@ public class BoardServlet extends HttpServlet {
 	  switch(command){
 	  
 		  case "measure":
-			  Util.AddMeasure(request);
+			  Context.AddMeasure(request);
 			  break;
 			  
 		  case "log":
-			  Util.AddLogEntry(request, response);
+			  Context.AddLogEntry(request, response);
 			  break;
 	  }
 

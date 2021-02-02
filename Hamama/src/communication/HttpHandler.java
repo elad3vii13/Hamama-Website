@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import logic.Context;
-import logic.Util;
 
 /**
  * Servlet implementation class HttpHandler
@@ -63,20 +62,20 @@ public class HttpHandler extends HttpServlet {
 				break;
 				
 			  case "measure":
-				  String result = Util.getMeasures(request);
+				  String result = Context.getMeasures(request);
 				  
 				  response.getWriter().print(result);
 				  break;
 				  
 			  case "sensors":
-				  String resultSensors = Util.getAllSensors(request);
+				  String resultSensors = Context.getAllSensors(request);
 				
 				  response.setContentType("application/json");
 				  response.getWriter().print(resultSensors);
 				  break;
 				  
 			  case "log":
-				  Util.getLogEntries(request, response);
+				  Context.getLogEntries(request, response);
 				  break;
 				  
 			case "uploadFile":
