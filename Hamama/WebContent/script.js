@@ -1,4 +1,5 @@
 var dictionary;
+var resultArray;
 
 function getUpdatedSensorList() {
 	var x = document.getElementById("sensor");  
@@ -115,41 +116,87 @@ function getHistory(){
         if (xmlhttp.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
            if (xmlhttp.status == 200) { // The HTTP 200 OK success status response code indicates that the request has succeeded. 
      	   	        	   
-               var result = JSON.parse(xmlhttp.responseText);
-
-               var string_final = "";
-              string_final += "<tr><th class=table-header>sid</th><th class=table-header>message</th><th class=table-header>priority</th><th class=table-header>time</th></tr>";
-
-               for (i in result) {
-            	   string_final += "<tr>";
-        	   		
-        	   	   var sensorName = dictionary.get(result[i].sid);
-
-                   string_final += "<td>" + sensorName + "</td>";
-                   string_final += "<td>" + result[i].message + "</td>";
-
-                   switch(result[i].priority) {
-                   		case "info": 
-                   		string_final += '<td><img style="width: 100px; height: 100px;" src="images/info.png"></td>';
-                   		break;
-
-                   		case "warning": 
-                   		string_final += '<td><img style="width: 100px; height: 100px;" src="images/warning.png"></td>';
-                   		break;
-
-                   		case "error": 
-                   		string_final += '<td><img style="width: 100px; height: 100px;" src="images/error.png"></td>';
-                   		break;
-                   }
-
-                   string_final += "<td>" + result[i].time + "</td>";
-            	   string_final += "</tr>";
-               }
-              document.getElementById("Board").innerHTML = string_final;
+               resultArray = JSON.parse(xmlhttp.responseText);
+               fillTable(resultArray);
            }
         }
     };
 
 	    xmlhttp.open("GET", result.toString(), true);
 	    xmlhttp.send();   
+}
+
+function fillTable(resultArray){
+	  var string_final = "";
+	  string_final += "<tr><th class=table-header><button onclick=sortBySensors()>חיישן</button></th>";
+	  string_final += "<th class=table-header>הערה</th>";
+	  string_final += "<th class=table-header><button onclick=sortByPriority()>עדיפות</button></th>";
+	  string_final += "<th class=table-header><button onclick=sortByTime()>תאריך</button></th></tr>";
+	
+	   for (i in resultArray) {
+		   string_final += "<tr>";
+	   		
+	   	   var sensorName = dictionary.get(resultArray[i].sid);
+	
+	       string_final += "<td>" + sensorName + "</td>";
+	       string_final += "<td>" + resultArray[i].message + "</td>";
+	
+	       switch(resultArray[i].priority) {
+	       		case "info": 
+	       		string_final += '<td><img style="width: 100px; height: 100px;" src="images/info.png"></td>';
+	       		break;
+	
+	       		case "warning": 
+	       		string_final += '<td><img style="width: 100px; height: 100px;" src="images/warning.png"></td>';
+	       		break;
+	
+	       		case "error": 
+	       		string_final += '<td><img style="width: 100px; height: 100px;" src="images/error.png"></td>';
+	       		break;
+	       }
+	
+		const date = new Date(parseInt(resultArray[i].time));
+		string_final += "<td>" + date.toLocaleDateString("en-US") + "</td>";	
+		string_final += "</tr>";
+		document.getElementById("Board").innerHTML = string_final;
+	}
+}
+
+function sortBySensors(){
+	 // alert("SENSORS");
+   resultArray.sort((a,b) => {
+    if(a.sid > b.sid) {
+      return 1;
+    } else {
+      return -1;
+    }
+   })
+
+   fillTable(resultArray);
+}
+
+function sortByTime(){
+	 //alert("TIME");
+      resultArray.sort((a,b) => {
+    if(a.time < b.time) {
+      return 1;
+    } else {
+      return -1;
+    }
+   })
+
+   fillTable(resultArray);
+}
+
+function sortByPriority(){
+	//alert("PRIORITY");
+     resultArray.sort((a,b) => {
+    if(a.priority > b.priority) {
+      return 1;
+    } else {
+      return -1;
+    }
+   })
+
+   fillTable(resultArray);
 }

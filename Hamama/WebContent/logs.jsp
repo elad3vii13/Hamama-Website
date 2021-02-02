@@ -57,7 +57,8 @@ th,td {
    height: 100%; 
  }
 
-button {
+
+.button-class {
   background: -webkit-linear-gradient(right, #a6f77b, #2dbd6e);
   border: none;
   border-radius: 21px;
@@ -69,6 +70,17 @@ button {
   margin-top: 50px;
   transition: 0.25s;
   width: 350px;
+}
+
+button{
+	font-size: 16px;
+	font-weight: bold;
+	padding: 10px;
+	border-radius:28px;
+	border:1px solid #000;
+	display:inline-block;
+	color: white;
+	background:#000;
 }
 
 </style>
@@ -101,7 +113,7 @@ button {
 	    <option value="info">ידיעה</option>
 	</select>
 	
-	<button style="margin-bottom: 10px;" onclick="getHistory()">הוסף טבלה</button>
+	<button class="button-class" style="margin-bottom: 10px;" onclick="getHistory()">הוסף טבלה</button>
 </div>
 
 <div style="display:flex;justify-content:center;align-items:center; margin-top: 60px;">

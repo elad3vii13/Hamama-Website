@@ -1,10 +1,4 @@
-    <option value="0">--בחר חיישן--</option>
-    <option value="1">מוליכות</option>
-    <option value="2">חומציות</option>
-    <option value="3">עריכות</option>
-    <option value="4">טמפרטורה 1</option>
-    <option value="5">טמפרטורה 2</option>
-    <option value="6">טמפרטורה 3</option><%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
