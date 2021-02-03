@@ -19,7 +19,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
-import model.DBHelper;
 import model.Log;
 import model.Measure;
 import model.MySQLDB;
@@ -38,7 +37,7 @@ public class Context {
 	ServletContext application;
 	PrintWriter out;
 	static MySQLDB dbc= new MySQLDB();
-	private static DBHelper myDB = new DBHelper();
+	//private static DBHelper myDB = new DBHelper();
 
 	private final String SESSION_KEY_USER= "currentUser";
 	private final String SESSION_KEY_MANAGER= "isManager";
@@ -190,7 +189,7 @@ public class Context {
 		  String time= request.getParameter("time");
 		  String sid= request.getParameter("sid");
 		  Measure m = new Measure(Long.parseLong(time), Double.parseDouble(value), Integer.parseInt(sid));
-		  myDB.addMeasure(m);
+		  dbc.addMeasure(m);
 	}
 	
 	public static void AddLogEntry(HttpServletRequest request, HttpServletResponse response ) {
@@ -202,7 +201,7 @@ public class Context {
 		  if (time == null || priority == null || message == null || sid == null)
 			  throw new Exception("bad new log command");
 		  Log log = new Log(Long.parseLong(time), priority, message, Integer.parseInt(sid));
-		  myDB.addLogEntry(log);
+		  dbc.addLogEntry(log);
 		  response.setStatus(HttpServletResponse.SC_OK);
 		  
 		} catch (Exception e) {
@@ -220,9 +219,9 @@ public class Context {
 			 if (from == null || to == null)
 				  throw new Exception("bad get log command");
 			 
-			 HashMap<Integer, String> sensors = myDB.getAllSensorsNames();
+			 HashMap<Integer, String> sensors = dbc.getAllSensorsNames();
 			 
-			ArrayList<Log> list = myDB.getLogEntries(sid, Long.parseLong(from), Long.parseLong(to), priority);
+			ArrayList<Log> list = dbc.getLogEntries(sid, Long.parseLong(from), Long.parseLong(to), priority);
 			Type listType = new TypeToken<ArrayList<Log>>() {}.getType();
 			Gson gson = new Gson(); 
 			String jsonResult = gson.toJson(list, listType);
@@ -237,10 +236,10 @@ public class Context {
 		String sid = request.getParameter("sid");
 		String from = request.getParameter("from");
 		String to = request.getParameter("to");
-		ArrayList<Measure> list = myDB.getMeasures(Integer.parseInt(sid), Long.parseLong(from), Long.parseLong(to));
+		ArrayList<Measure> list = dbc.getMeasures(Integer.parseInt(sid), Long.parseLong(from), Long.parseLong(to));
 		Type listType = new TypeToken<ArrayList<Measure>>() {}.getType();
 		Gson gson = new Gson(); 
-		Sensor sensor = myDB.getSensorProperties(Integer.parseInt(sid));
+		Sensor sensor = dbc.getSensorProperties(Integer.parseInt(sid));
 		JsonObject jsonResult = (JsonObject) gson.toJsonTree(new Sensor(Integer.parseInt(sid), sensor.getName(), sensor.getUnits(), sensor.getDisplayName()));
 		String jsonMeasures = gson.toJson(list, listType);
 		jsonResult.addProperty("measures", jsonMeasures);
@@ -249,7 +248,7 @@ public class Context {
 	}
 	
 	public static String getAllSensors(HttpServletRequest request) {
-		ArrayList<Sensor> sensors = myDB.getAllSensors();
+		ArrayList<Sensor> sensors = dbc.getAllSensors();
 		Type listType = new TypeToken<ArrayList<Sensor>>() {}.getType();
 		Gson gson = new Gson(); 
 		String jsonAllSensors = gson.toJson(sensors, listType);

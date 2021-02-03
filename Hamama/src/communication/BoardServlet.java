@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import logic.Context;
-import model.DBHelper;
 import model.Log;
 import model.Measure;
 
