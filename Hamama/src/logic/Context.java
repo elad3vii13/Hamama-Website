@@ -30,6 +30,7 @@ import model.User;
 //your web site.
 //it has two constructors, one usually used from servlets/listeners modules 
 //and the other used from jsp pages
+
 public class Context {
 	HttpServletRequest request;
 	HttpServletResponse  response;
@@ -37,8 +38,6 @@ public class Context {
 	ServletContext application;
 	PrintWriter out;
 	static MySQLDB dbc= new MySQLDB();
-	//private static DBHelper myDB = new DBHelper();
-
 	private final String SESSION_KEY_USER= "currentUser";
 	private final String SESSION_KEY_MANAGER= "isManager";
 	
@@ -62,7 +61,7 @@ public class Context {
 				(HttpServletResponse)pContext.getResponse());
 	}
 	
-	//used mainly from servlets...
+	//used mainly from servlets
 	public Context(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		this.request = request;
 		
@@ -89,7 +88,6 @@ public class Context {
 			out.write("window.location.href='"+ forwardToPage + "';");
 		out.write("</script>");
 	}
-	
 	
 	public void handleLogout(){
 		this.session.removeAttribute(SESSION_KEY_USER);
@@ -179,10 +177,7 @@ public class Context {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-	
-	////// Util /////
-	
+	}	
 	
 	public static void AddMeasure(HttpServletRequest request) {
 		  String value= request.getParameter("value");

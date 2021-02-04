@@ -14,7 +14,7 @@ function getUpdatedSensorList() {
            	   for(i in sensorsJson){
              	  var option = document.createElement("option");
             	  option.text = sensorsJson[i].displayName;
-            	  option.value = i+1;
+            	  option.value = parseInt(i) +1;
             	  x.add(option);
 
             	  dictionary.set(parseInt(sensorsJson[i].id, 10), sensorsJson[i].displayName.toString());
@@ -40,6 +40,7 @@ function addGraph(){
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
+           if(xmlhttp.status == 500) alert("There are no data, for the selected sensor ...")
            if (xmlhttp.status == 200) { // The HTTP 200 OK success status response code indicates that the request has succeeded. 
               
                var result = JSON.parse(xmlhttp.responseText);
@@ -114,6 +115,7 @@ function getHistory(){
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
+           if(xmlhttp.responseText == '[]') alert("There are no data, for those settings ...")
            if (xmlhttp.status == 200) { // The HTTP 200 OK success status response code indicates that the request has succeeded. 
      	   	        	   
                resultArray = JSON.parse(xmlhttp.responseText);

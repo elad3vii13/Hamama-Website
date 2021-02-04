@@ -174,9 +174,7 @@ public class MySQLDB {
 			con = null;
 		}
 	}
-
 	
-	// DBHelper ////////////////////////////////////////////////////////////////////////
 	public void addUser (String name) {
 		String sqlString = "INSERT INTO  users" + " (name)" 
 				+ "VALUES ('"+ name + "')";

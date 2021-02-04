@@ -23,7 +23,7 @@ public class BoardServlet extends HttpServlet {
 	  String command = request.getParameter("cmd");
 	  if (command ==null) return;
 	  switch(command){
-	  
+	 
 		  case "measure":
 			  Context.AddMeasure(request);
 			  break;
@@ -32,11 +32,5 @@ public class BoardServlet extends HttpServlet {
 			  Context.AddLogEntry(request, response);
 			  break;
 	  }
-
-//    response.setContentType("application/json");
-//    response.setCharacterEncoding("UTF-8");
-//
-//    response.getWriter().print("OK");
-
   }
 }

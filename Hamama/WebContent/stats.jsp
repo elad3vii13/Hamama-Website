@@ -8,8 +8,8 @@
 
 <style>
 .upperDiv {
-margin-top: 10px;
-  justify-content: space-between;
+	margin-top: 10px;
+  justify-content: space-between;   
   flex-direction: column;
   display: flex;
 }
@@ -57,13 +57,18 @@ select {
 
 <div class="upperDiv" style="height: 30%; width: 95%; border-radius: 20px; background-color: white; margin: 20px auto; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
 
-<!-- FROM DATE -->
-<header style="float: right; margin-top: 30px; margin-right: 30px;">מתאריך:</header>
-<input type="datetime-local" id="fromValue" name="from" value="2021-01-1T19:30" style="width: 30%; margin-right: 30px"></input>
-      
-<!-- TO DATE --> 
-<header style="float: left; margin-top: 30px; margin-right: 30px;">עד תאריך:</header>
-<input type="datetime-local" id="toValue" name="to" value="2021-01-1T19:30" style="width: 30%; margin-right: 30px"></input>
+
+<div>
+	<!-- FROM DATE -->
+	<header style="padding-top: 30px; padding-right: 30px;">מתאריך:</header>
+	<input type="datetime-local" id="fromValue" name="from" value="2021-01-1T19:30" style="width: 30%; margin-right: 30px"></input>
+</div>
+
+<div>    
+	<!-- TO DATE --> 
+	<header style="padding-top: 30px; padding-right: 30px;">עד תאריך:</header>
+	<input type="datetime-local" id="toValue" name="to" value="2021-01-1T19:30" style="width: 30%; margin-right: 30px"></input>
+</div>
 
 <form>
 	<select name="sensor" id="sensor" style="width: 30%; margin-right: 30px; margin-top: 10px" dir="rtl"> 

@@ -92,13 +92,18 @@ button{
 		ctx.insertAlertDlg("You are not allowed to access this page, you are forwarded to the home page", "home.jsp");%>
 		
 <div class="upperDiv">
-	<!-- FROM DATE -->
-	<header style="margin-top: 30px; margin-right: 30px;">מתאריך:</header>
-	<input type="datetime-local" id="fromValue" name="from" value="2021-01-1T19:30" style="width: 30%; margin-right: 30px"></input>
+
+	<div>
+		<!-- FROM DATE -->
+		<header style="margin-top: 30px; margin-right: 30px;">מתאריך:</header>
+		<input type="datetime-local" id="fromValue" name="from" value="2021-01-1T19:30" style="width: 30%; margin-right: 30px"></input>
+	</div>
 	      
-	<!-- TO DATE --> 
-	<header style="margin-top: 10px; margin-right: 30px;">עד תאריך:</header>
-	<input type="datetime-local" id="toValue" name="to" value="2021-01-1T19:30" style="width: 30%; margin-right: 30px"></input>
+	 <div>
+		<!-- TO DATE --> 
+		<header style="margin-top: 10px; margin-right: 30px;">עד תאריך:</header>
+		<input type="datetime-local" id="toValue" name="to" value="2021-01-1T19:30" style="width: 30%; margin-right: 30px"></input>
+	</div>
 	
 	<form>
 		<select name="sensor" id="sensor" style="width: 30%; margin-right: 30px; margin-top: 10px" dir="rtl"> 

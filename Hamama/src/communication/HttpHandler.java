@@ -57,7 +57,7 @@ public class HttpHandler extends HttpServlet {
 				ctx.deleteUser(nickname);
 				break;
 			case "other":
-				response.getWriter().print("<p style='font-size: 24px'>not supported yet!!!</p>");
+				response.getWriter().print("<p style='font-size: 24px'>not supported yet</p>");
 			
 				break;
 				
@@ -78,11 +78,6 @@ public class HttpHandler extends HttpServlet {
 				  Context.getLogEntries(request, response);
 				  break;
 				  
-			case "uploadFile":
-				/* String filename1= uploadTheFile(request, "file1", UPLOAD_FOLDER);*/
-				/*String other = request.getParameter("other");*/
-				/*here you can call ctx.something(filename1,other)*/
-				break;
 			default:
 				ctx.handleUnknownRequest();
 			}
