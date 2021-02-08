@@ -17,10 +17,7 @@
   <% if (!ctx.isLoggedIn())
   		out.write("<li><a href='login.jsp'>כניסה</a></li>");
   	else
-  		out.write("<li><a href='HttpHandler?cmd=logout'>יציאה</a></li>"); %>
-  
-  <li><a href="stats.jsp">נתונים</a></li>
-  <li><a href="logs.jsp">היסטוריה</a></li> 
+  		out.write("<li><a href='HttpHandler?cmd=logout'>יציאה</a></li>"); %>  
  
   <p style= "float: left; color: white; margin-left: 10px; margin-top: 10px">
 	<% if(ctx.isLoggedIn())
@@ -30,9 +27,13 @@
 	
 	<% if (ctx.isLoggedIn()){
   		if(ctx.isManager()) {
-	  			out.write("<li><a href='management.jsp'>ניהול</a></li>");
+ 			out.write("<li><a href='management.jsp'>ניהול</a></li>");
+ 			out.write("<li><a href='logs.jsp'>היסטוריה</a></li>");
+ 		  	out.write("<li><a href='stats.jsp'>נתונים</a></li>");
   		}
   	} %>
+  	
+  <li><a href="about.jsp">אודות</a></li> 
 </ul>
 </body>
 </html>
