@@ -28,10 +28,9 @@ header {
 		אודות
 	</header>	
 
-	<p style="margin-left: 200px; margin-right: 200px; color: white; font-size: 50px; text-shadow: 1px 2px 1px #000000;text-align: center;">באתר
+	<p style="margin-left: 200px; margin-right: 200px; color: white; font-size: 50px; text-shadow: 1px 2px 1px #000000;text-align: center;">
 אתר האינטרנט של החממה החכמה פותח על מנת לאפשר גישה נוחה לנתונים שמתקבלים מהחממה והצגתם בצורה ידידותית למשתמש.
  אתר האינטרנט של החממה פותח בשנת הלימודים תשפ"א (2021)  על ידי אלעד לוי בהדרכת דניאל בואנוס.
-תאריכים
 	</p>
 </div>
 </body>

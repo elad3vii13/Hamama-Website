@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.PageContext;
 
+import com.google.appengine.api.utils.SystemProperty;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
@@ -32,28 +33,16 @@ import model.User;
 //and the other used from jsp pages
 
 public class Context {
+	MySQLDB dbc;
 	HttpServletRequest request;
 	HttpServletResponse  response;
 	HttpSession session;
 	ServletContext application;
 	PrintWriter out;
-	static MySQLDB dbc= new MySQLDB();
-	private final String SESSION_KEY_USER= "currentUser";
-	private final String SESSION_KEY_MANAGER= "isManager";
+	final static boolean isProduction = SystemProperty.environment.value() == SystemProperty.Environment.Value.Production;;
+	final static String SESSION_KEY_USER= "currentUser";
+	final static String SESSION_KEY_MANAGER= "isManager";
 	
-	public List<User> getAllUseList() {
-		return dbc.getAllUsers();
-	}
-	
-	public void deleteUser(String username) {
-		dbc.DeleteUser(username);
-		try {
-			response.sendRedirect("management.jsp");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 	
 	//used mainly from JSP	
 	public Context(PageContext pContext) throws Exception {
@@ -63,8 +52,8 @@ public class Context {
 	
 	//used mainly from servlets
 	public Context(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		this.dbc= new MySQLDB(isProduction, false);
 		this.request = request;
-		
 		this.response = response;
 		this.session = request.getSession();
 		this.application = this.session.getServletContext();
@@ -87,6 +76,21 @@ public class Context {
 		if (forwardToPage!= null)
 			out.write("window.location.href='"+ forwardToPage + "';");
 		out.write("</script>");
+	}
+	
+	public List<User> getAllUseList() {
+		return dbc.getAllUsers();
+	}
+	
+	public void deleteUserByName() {
+		String username=  request.getParameter("nickname");
+		dbc.DeleteUser(username);
+		try {
+			response.sendRedirect("management.jsp");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void handleLogout(){
@@ -113,37 +117,52 @@ public class Context {
 		return (u==null)?"אורח": u.getNickName();
 	}
 	
-	public void handleLogin() {
+	public void handleLogin(boolean fromMobile) {
+		long lastLogin = System.currentTimeMillis();
 		String nickname= request.getParameter("nickname");
 		String password= request.getParameter("password");
+		
 		try {
 			User u = dbc.UserAuthenticate(nickname, password);
 			if(u!=null) {
 				this.session.setAttribute(SESSION_KEY_USER, u);
-				String url = "home.jsp?name=" + URLEncoder.encode(nickname, "UTF-8");
-				response.sendRedirect(url);
+				dbc.updateLastLogin(lastLogin, nickname);
+				if(fromMobile) {
+					out.print(u.getId());
+				}
+				else {
+					String url = "home.jsp?name=" + URLEncoder.encode(nickname, "UTF-8");
+					response.sendRedirect(url);
+				}
+				
+			
 				//you might need to encode the url in some unresolved cases where sessionID needs to be enforced
 				//response.sendRedirect(response.encodeRedirectURL(url));
 			}
 			else {
-				 request.setAttribute("error",  "×©×� ×”×ž×©×ª×ž×© ×�×• ×”×¡×™×¡×ž×� ×�×™× ×� × ×›×•× ×™×�, ×�× ×� × ×¡×” ×©×•×‘");
-				 request.getRequestDispatcher("login.jsp").forward(request, response);
-		
+				if (fromMobile) out.print(-1);
+				else {
+					 request.setAttribute("error",  "×©×� ×”×ž×©×ª×ž×© ×�×• ×”×¡×™×¡×ž×� ×�×™× ×� × ×›×•× ×™×�, ×�× ×� × ×¡×” ×©×•×‘");
+					 request.getRequestDispatcher("login.jsp").forward(request, response);
+				}
 			}
 		} catch (IOException | ServletException e) {
 			e.printStackTrace();
 		} 
 	}
+	
 	public void handleRegistration() {
+		long lastLogin = System.currentTimeMillis();
 		String nickname= request.getParameter("nickname");
 		if (userCanBeRegistered(nickname)){
 			dbc.AddNewUser(userFromRequest());
-			handleLogin();
+			handleLogin(false);
 		}
 		else {
 			request.setAttribute("error", "×©×� ×ž×©×ª×ž×© ×–×” ×›×‘×¨ ×‘×©×™×ž×•×©, ×�× ×� ×”×–×Ÿ ×©×� ×�×—×¨");
 			try {
 				request.getRequestDispatcher("registration.jsp").forward(request, response);
+				dbc.updateLastLogin(lastLogin, nickname);
 			} catch (ServletException | IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -179,7 +198,7 @@ public class Context {
 		}
 	}	
 	
-	public static void AddMeasure(HttpServletRequest request) {
+	public void AddMeasure() {
 		  String value= request.getParameter("value");
 		  String time= request.getParameter("time");
 		  String sid= request.getParameter("sid");
@@ -187,7 +206,7 @@ public class Context {
 		  dbc.addMeasure(m);
 	}
 	
-	public static void AddLogEntry(HttpServletRequest request, HttpServletResponse response ) {
+	public void AddLogEntry() {
 		 try {
 		  String time = request.getParameter("time");
 		  String priority = request.getParameter("priority");
@@ -205,7 +224,7 @@ public class Context {
 		}
 	}
 	
-	public static void getLogEntries(HttpServletRequest request, HttpServletResponse response) {
+	public void getLogEntries() {
 		try {
 			String sid = request.getParameter("sid");
 			String from = request.getParameter("from");
@@ -220,6 +239,7 @@ public class Context {
 			Type listType = new TypeToken<ArrayList<Log>>() {}.getType();
 			Gson gson = new Gson(); 
 			String jsonResult = gson.toJson(list, listType);
+			response.setContentType("application/json");
 			response.getWriter().print(jsonResult.toString());
 		}catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -227,7 +247,7 @@ public class Context {
 		}
 	}
 	
-	public static String getMeasures(HttpServletRequest request) {
+	public void getMeasures() {
 		String sid = request.getParameter("sid");
 		String from = request.getParameter("from");
 		String to = request.getParameter("to");
@@ -238,16 +258,18 @@ public class Context {
 		JsonObject jsonResult = (JsonObject) gson.toJsonTree(new Sensor(Integer.parseInt(sid), sensor.getName(), sensor.getUnits(), sensor.getDisplayName()));
 		String jsonMeasures = gson.toJson(list, listType);
 		jsonResult.addProperty("measures", jsonMeasures);
-		
-		return jsonResult.toString();
+		response.setContentType("application/json");
+		out.print(jsonResult);
+		return;
 	}
 	
-	public static String getAllSensors(HttpServletRequest request) {
+	public void getAllSensors() {
 		ArrayList<Sensor> sensors = dbc.getAllSensors();
 		Type listType = new TypeToken<ArrayList<Sensor>>() {}.getType();
 		Gson gson = new Gson(); 
 		String jsonAllSensors = gson.toJson(sensors, listType);
-		return jsonAllSensors;
+		response.setContentType("application/json");
+		out.print(jsonAllSensors);
+		return;
 	}
-	
 }

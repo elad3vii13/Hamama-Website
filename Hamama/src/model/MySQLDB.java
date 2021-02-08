@@ -11,22 +11,80 @@ import javax.servlet.http.HttpServletRequest;
 
 
 public class MySQLDB {
-	Connection con;
+	static final String REMOTE_USER="elad2021";
+	static final String REMOTE_PSW= "DeaLnaiDeL";
+	
+	static final String LOCAL_USER="root";
+	static final String LOCAL_PSW= "1313";
+	
+	static Connection con;
+	static boolean failedToConnect=false;
 	
 	public MySQLDB(){
 		String connectionURL = "jdbc:mysql://localhost:3306/sotz?serverTimezone=Asia/Jerusalem";
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            con= DriverManager.getConnection(connectionURL, "root", "1313");
+            con= DriverManager.getConnection(connectionURL, "root", "martin05");
         } catch (Exception e) {
 			System.out.println("error in connecting to the DB");
 			con = (Connection)null;	
         }
 	}
 	
+	public MySQLDB(boolean isProduction, boolean retry){
+		if (con!= null || (failedToConnect &&!retry))
+			return;
+		failedToConnect=false;
+		if (isProduction)
+			con = connectToCloudDbByIP(REMOTE_USER, REMOTE_PSW);
+		else
+			con = connectToLocalDB(LOCAL_USER, LOCAL_PSW);
+	}
+	
+	private static Connection connectToLocalDB(String user, String password) {
+		try { 
+			Class.forName("com.mysql.jdbc.Driver"); 
+			String url= String.format("jdbc:mysql://localhost:3306/sotz?serverTimezone=Asia/Jerusalem"); 
+			return DriverManager.getConnection(url, user, password);
+		} catch (SQLException | ClassNotFoundException e) { 
+			e.printStackTrace();
+			System.out.println("error in connecting to the DB");
+			failedToConnect=true;
+			return null;
+		} 
+	}
+	
+
+	private static Connection connectToCloudDbByIP(String user, String password) {
+		try { 
+			Class.forName("com.mysql.jdbc.Driver"); 
+			String url= String.format("jdbc:mysql://35.205.18.21:3306/sotz"); 
+			return DriverManager.getConnection(url, user, password);
+		} catch (SQLException | ClassNotFoundException e) { 
+			e.printStackTrace();
+			System.out.println("error in connecting to the DB");
+			failedToConnect=true;
+			return null;
+		} 
+	}
+	
 	public boolean IsDbConnected()
 	{
 		return con != null;
+	}
+	
+	public void updateLastLogin(long lastLogin, String name) {
+		// UPDATE users SET lastLogin = '1313131313' WHERE nickname = 'elad';
+       String sqlString = "UPDATE users SET lastLogin = '" + lastLogin + "'" + " WHERE nickname = '" + name + "'";
+       System.out.println(sqlString);
+        try {
+        		Statement statement = con.createStatement();
+	            statement.executeUpdate(sqlString);
+	            
+	            statement.close();
+            } catch(SQLException ex) {
+            	System.out.println("SQLException: " + ex.getMessage());
+            	}	
 	}
 	
 	public boolean UserExists(String nickname){
@@ -41,9 +99,6 @@ public class MySQLDB {
 								return true;			
 				   			  }
 	}
-	
-	
-
 	
 	public void AddNewUser(User user){
        String sqlString = "INSERT INTO  users" + " (nickname, password, role)" 
@@ -115,6 +170,7 @@ public class MySQLDB {
 					u.setPassword(rs.getString(rs.findColumn("password")));
 					u.setRole(rs.getString(rs.findColumn("role")));
 					u.setId(rs.getInt(rs.findColumn("id")));
+					u.setLastLogin(rs.getLong(rs.findColumn("lastLogin")));
 					result.add(u);
 				}
 				return result;

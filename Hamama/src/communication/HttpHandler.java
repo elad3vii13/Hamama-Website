@@ -13,7 +13,7 @@ import logic.Context;
  * Servlet implementation class HttpHandler
  */
 @WebServlet("/HttpHandler")
-public class HttpHandler extends HttpServlet {
+public class HttpHandler extends BaseServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -42,46 +42,24 @@ public class HttpHandler extends HttpServlet {
 		if (command == null)
 			response.getWriter().print("<p style='font-size: 24px'>I don't understand you!!!</p>");
 		else {
-			switch(command) {
+			handleRequest(ctx, command);
+		}	
+	}
+	
+	@Override
+	protected void handleRequest(Context ctx, String cmd) {
+		switch(cmd) {
 			case "register":
 				ctx.handleRegistration();
 				break;
-			case "login":
-				ctx.handleLogin();
-				break;
-			case "logout":
-				ctx.handleLogout();
-				break;
+				
 			case "deleteUser":
-				String nickname = request.getParameter("nickname");
-				ctx.deleteUser(nickname);
+				ctx.deleteUserByName();
 				break;
-			case "other":
-				response.getWriter().print("<p style='font-size: 24px'>not supported yet</p>");
 			
-				break;
-				
-			  case "measure":
-				  String result = Context.getMeasures(request);
-				  
-				  response.getWriter().print(result);
-				  break;
-				  
-			  case "sensors":
-				  String resultSensors = Context.getAllSensors(request);
-				
-				  response.setContentType("application/json");
-				  response.getWriter().print(resultSensors);
-				  break;
-				  
-			  case "log":
-				  Context.getLogEntries(request, response);
-				  break;
-				  
 			default:
-				ctx.handleUnknownRequest();
-			}
-		}	
+				super.handleRequest(ctx, cmd);
+		}
 	}
 
 	/**

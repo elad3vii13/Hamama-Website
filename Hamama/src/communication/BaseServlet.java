@@ -10,16 +10,16 @@ import javax.servlet.http.HttpServletResponse;
 import logic.Context;
 
 /**
- * Servlet implementation class MobileServlet
+ * Servlet implementation class BaseServlet
  */
-@WebServlet("/mobile")
-public class MobileServlet extends BaseServlet {
+@WebServlet("/BaseServlet")
+public class BaseServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MobileServlet() {
+    public BaseServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,7 +27,7 @@ public class MobileServlet extends BaseServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response){
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Context ctx;
 		try {
 			ctx = new Context(request, response);
@@ -37,23 +37,40 @@ public class MobileServlet extends BaseServlet {
 			return;
 		}
 		
-		//request.setCharacterEncoding("utf-8");
-		//response.setCharacterEncoding("UTF-8");
-		  
 		String command = request.getParameter("cmd");
-		  if (command ==null) return;
-		  handleRequest(ctx, command);
+
+		if (command == null)
+			response.getWriter().print("<p style='font-size: 24px'>I don't understand you!!!</p>");
+		else {
+			handleRequest(ctx, command);
+		}
 	}
 	
-	@Override
 	protected void handleRequest(Context ctx, String cmd) {
 		switch(cmd) {
-			case "login":
-				ctx.handleLogin(true);
-				break;
+		
+		case "login":
+			ctx.handleLogin(false);
+			break;
 			
-			default:
-				super.handleRequest(ctx, cmd);
+		case "logout":
+			ctx.handleLogout();
+			break;
+			
+		  case "measure":
+			  ctx.getMeasures();
+			  break;
+			  
+		  case "sensors":
+			  ctx.getAllSensors();
+			  break;
+			  
+		  case "log":
+			  ctx.getLogEntries();
+			  break;
+			  
+		default:
+			ctx.handleUnknownRequest();
 		}
 	}
 	

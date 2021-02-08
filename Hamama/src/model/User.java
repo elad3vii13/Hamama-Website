@@ -9,6 +9,14 @@ public class User extends NotSerializableException implements java.io.Serializab
 	
 	String nickName, password, role;
 	int id;	//model id of the user, retrieved from DB
+	long lastLogin;
+	
+	public long getLastLogin() {
+		return lastLogin;
+	}
+	public void setLastLogin(long lastLogin) {
+		this.lastLogin = lastLogin;
+	}
 	
 	public String getRole() {
 		return this.role;

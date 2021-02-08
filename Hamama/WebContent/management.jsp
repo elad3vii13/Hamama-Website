@@ -1,5 +1,8 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="model.User"%>
 <%@page import="java.util.List"%>
+<%@page import="java.util.Date"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -89,7 +92,7 @@ function createATable(){
 	  <% List<User> users= ctx.getAllUseList();
 	  int size = users.size();
 	  	  
-      String string_final = "<tr><th class=table-header>id</th><th class=table-header>nickname</th><th class=table-header>password</th><th class=table-header>role</th></tr>";
+      String string_final = "<tr><th class=table-header>מזהה</th><th class=table-header>שם משתמש</th><th class=table-header>סיסמא</th><th class=table-header>תפקיד</th><th class=table-header>שעת התחברות אחרונה</th></tr>";
 
       for (int i = 0; i < size; i++) {
    	   string_final += "<tr>";
@@ -97,6 +100,16 @@ function createATable(){
        string_final += "<td>" + users.get(i).getNickName() + "</td>";
        string_final += "<td>" + users.get(i).getPassword() + "</td>";
        string_final += "<td>" + users.get(i).getRole() + "</td>";
+       
+	    // convert seconds to milliseconds
+	    Date date = new java.util.Date(users.get(i).getLastLogin()); 
+	    // the format of your date
+	    SimpleDateFormat sdf = new java.text.SimpleDateFormat("HH:mm:ss dd-MM-yyyy"); 
+	    // give a timezone reference for formatting (see comment at the bottom)
+	    sdf.setTimeZone(java.util.TimeZone.getTimeZone("GMT-2"));
+	    String formattedDate = sdf.format(date);
+       
+       string_final += "<td>" + formattedDate + "</td>";
 	   string_final += "</tr>";
       } %>
       
@@ -113,7 +126,7 @@ function getSensorList(){
                
         	   var sensorsJson = JSON.parse(xmlhttp.responseText);
                var string_final = "";
-               string_final += "<tr><th class=table-header>id</th><th class=table-header>Name</th><th class=table-header>units</th></tr>";
+               string_final += "<tr><th class=table-header>מזהה</th><th class=table-header>שם חיישן</th><th class=table-header>יחידות</th></tr>";
                
            	   for(i in sensorsJson){
            			string_final += "<tr>";
