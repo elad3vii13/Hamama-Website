@@ -3,7 +3,7 @@ var resultArray;
 
 function getUpdatedSensorList() {
 	var x = document.getElementById("sensor");  
-	var result = 'http://localhost:8080/mobile?cmd=sensors';    
+	var result = 'HttpHandler?cmd=sensors';    
 	dictionary = new Map();
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
@@ -35,7 +35,7 @@ function addGraph(){
 	var toUnix = new Date(to).valueOf();
 	var sensor = document.getElementById("sensor").value;
 	
-	var result = 'http://localhost:8080/mobile?cmd=measure&sid=' + sensor + '&from=' + fromUnix + '&to=' + toUnix;    
+	var result = 'HttpHandler?cmd=measure&sid=' + sensor + '&from=' + fromUnix + '&to=' + toUnix;    
    
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
@@ -100,16 +100,16 @@ function getHistory(){
 	var priority = document.getElementById("priority").value;
 	
 	if(sensor==0 && priority!=0) {
-    	var result = 'http://localhost:8080/HttpHandler?cmd=log&from=' + fromUnix + '&to=' + toUnix + '&priority=' + priority;    
+    	var result = 'HttpHandler?cmd=log&from=' + fromUnix + '&to=' + toUnix + '&priority=' + priority;    
 	}
 	else if(sensor!=0 && priority==0) {
-    	var result = 'http://localhost:8080/HttpHandler?cmd=log&from=' + fromUnix + '&to=' + toUnix + '&sid=' + sensor;    
+    	var result = 'HttpHandler?cmd=log&from=' + fromUnix + '&to=' + toUnix + '&sid=' + sensor;    
 	}
 	else if(sensor!=0 && priority!=0) {
-	    var result = 'http://localhost:8080/HttpHandler?cmd=log&sid=' + sensor + '&from=' + fromUnix + '&to=' + toUnix + '&priority=' + priority;  
+	    var result = 'HttpHandler?cmd=log&sid=' + sensor + '&from=' + fromUnix + '&to=' + toUnix + '&priority=' + priority;  
 	}
 	else if(sensor==0 && priority==0){
-		var result = 'http://localhost:8080/HttpHandler?cmd=log&from=' + fromUnix + '&to=' + toUnix;  
+		var result = 'HttpHandler?cmd=log&from=' + fromUnix + '&to=' + toUnix;  
 	}
     	
     var xmlhttp = new XMLHttpRequest();
