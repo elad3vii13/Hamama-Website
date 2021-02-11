@@ -54,7 +54,7 @@ public class BaseServlet extends HttpServlet {
 			break;
 			
 		case "logout":
-			ctx.handleLogout();
+			ctx.handleLogout(false);
 			break;
 			
 		  case "measure":

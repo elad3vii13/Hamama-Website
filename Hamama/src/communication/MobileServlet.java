@@ -51,6 +51,10 @@ public class MobileServlet extends BaseServlet {
 			case "login":
 				ctx.handleLogin(true);
 				break;
+				
+			case "logout":
+				ctx.handleLogin(true);
+				break;
 			
 			default:
 				super.handleRequest(ctx, cmd);

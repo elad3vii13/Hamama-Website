@@ -93,10 +93,15 @@ public class Context {
 		}
 	}
 	
-	public void handleLogout(){
+	public void handleLogout(boolean fromMobile){
 		this.session.removeAttribute(SESSION_KEY_USER);
 		try {
-			response.sendRedirect("home.jsp");
+			if(!fromMobile)
+				response.sendRedirect("home.jsp");
+			else {
+				this.session.invalidate();
+				response.setStatus(HttpServletResponse.SC_OK);
+			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
