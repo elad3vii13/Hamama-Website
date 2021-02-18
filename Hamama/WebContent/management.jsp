@@ -106,7 +106,7 @@ function createATable(){
 	    // the format of your date
 	    SimpleDateFormat sdf = new java.text.SimpleDateFormat("HH:mm:ss dd-MM-yyyy"); 
 	    // give a timezone reference for formatting (see comment at the bottom)
-	    sdf.setTimeZone(java.util.TimeZone.getTimeZone("GMT-2"));
+	    sdf.setTimeZone(java.util.TimeZone.getTimeZone("GMT+2"));
 	    String formattedDate = sdf.format(date);
        
        string_final += "<td>" + formattedDate + "</td>";

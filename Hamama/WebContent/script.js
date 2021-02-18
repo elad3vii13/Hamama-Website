@@ -27,66 +27,98 @@ function getUpdatedSensorList() {
     xmlhttp.send();
 }
 
+var chart= undefined;
+
 function addGraph(){
+  if(chart != undefined) {
+    chart.destroy();
+    chart = undefined;
+  }
 	var from = document.getElementById("fromValue").value;
 	var fromUnix = new Date(from).valueOf();
 	
 	var to = document.getElementById("toValue").value;
 	var toUnix = new Date(to).valueOf();
-	var sensor = document.getElementById("sensor").value;
-	
-	var result = 'HttpHandler?cmd=measure&sid=' + sensor + '&from=' + fromUnix + '&to=' + toUnix;    
-   
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
-        if (xmlhttp.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
-           if(xmlhttp.status == 500) alert("There are no data, for the selected sensor ...")
-           if (xmlhttp.status == 200) { // The HTTP 200 OK success status response code indicates that the request has succeeded. 
-              
-               var result = JSON.parse(xmlhttp.responseText);
-               var resultJson = JSON.parse(result.measures);
-               
-               var timeArr = [];
-               var valueArr = [];
-               var dps = []; // dataPoints array
-               
-               for (i in resultJson) {
-                 	 timeArr.push(resultJson[i].time);
-                 	 valueArr.push(resultJson[i].value);
-               }
-                              
-               var chart = new CanvasJS.Chart("chartContainer", 
-           	   {
-            	   zoomEnabled: true,
-            	   animationEnabled: true,
-            	   
-            	   axisX: {
-               	    title: "Dates"
-               	  },
-               	  axisY: {
-               	    title: "Values"
-               	  },
-               	  data: [{
-               	    type: "line",
-               	    dataPoints: dps
-               	  }]
-               	});
-               
-               for (var i = dps.length; i < timeArr.length; i++)
-                   dps.push({
-                     x: new Date(timeArr[i]),
-                     y: valueArr[i]
-                   });
-               
-               //parseDataPoints();
-               chart.options.data[0].dataPoints = dps;
-               chart.render();
-           }
-        }
-    };
+	var sensor = document.getElementById("sensor").selectedOptions;
+
+  for (var i = 0; i < sensor.length; i++) {
+    var a = sensor[i].value;
+  }
+
+  var i = 0;
+  
+  var result = 'HttpHandler?cmd=measure&sid=' + sensor[i++].value + '&from=' + fromUnix + '&to=' + toUnix;
+
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.onreadystatechange = function() {
+          if (xmlhttp.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
+             if(xmlhttp.status == 500) alert("There are no data, for the selected sensor ...")
+             if (xmlhttp.status == 200)  { // The HTTP 200 OK success status response code indicates that the request has succeeded. 
+                
+                 var result = JSON.parse(xmlhttp.responseText);
+                 var resultJson = JSON.parse(result.measures);
+                 addNewLine(resultJson);
+                 if (i< sensor.length){
+                    result = 'HttpHandler?cmd=measure&sid=' + sensor[i++].value + '&from=' + fromUnix + '&to=' + toUnix;
+                    xmlhttp.open("GET", result.toString(), true);
+                    xmlhttp.send();
+                 }
+             }
+          }
+    }
 
     xmlhttp.open("GET", result.toString(), true);
     xmlhttp.send();
+  }
+
+var linesCounter=0;
+
+function addNewLine(resultJson){
+   var timeArr = [];
+   var valueArr = [];
+   var dps = []; // dataPoints array
+   
+   for (i in resultJson) {
+       timeArr.push(resultJson[i].time);
+       valueArr.push(resultJson[i].value);
+   }
+  
+   for (var i = dps.length; i < timeArr.length; i++)
+       dps.push({
+         x: new Date(timeArr[i]),
+         y: valueArr[i]
+       });
+
+   if (chart == undefined){
+
+    chart = new CanvasJS.Chart("chartContainer",
+     {
+       zoomEnabled: true,
+       animationEnabled: true,
+       
+       axisX: {
+          title: "Dates"
+        },
+        axisY: {
+          title: "Values"
+        },
+        data: [{
+          type: "line",
+          dataPoints: dps
+        }]
+      });
+    }
+
+    else {
+     
+      chart.addTo("data", {
+          type: "line",
+          dataPoints: dps
+        }, linesCounter);
+    }
+    
+    linesCounter++
+    chart.render();
 }
 
 function getHistory(){

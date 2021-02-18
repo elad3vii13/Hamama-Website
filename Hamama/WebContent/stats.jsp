@@ -11,7 +11,6 @@
 	margin-top: 10px;
   justify-content: space-between;   
   flex-direction: column;
-  display: flex;
 }
 
 body {
@@ -57,26 +56,23 @@ select {
 
 <div class="upperDiv" style="height: 30%; width: 95%; border-radius: 20px; background-color: white; margin: 20px auto; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
 
-
 <div>
 	<!-- FROM DATE -->
-	<header style="padding-top: 30px; padding-right: 30px;">מתאריך:</header>
+	<header style="padding-top: 10px; padding-right: 30px;">מתאריך:</header>
 	<input type="datetime-local" id="fromValue" name="from" value="2021-01-1T19:30" style="width: 30%; margin-right: 30px"></input>
-</div>
-
-<div>    
-	<!-- TO DATE --> 
-	<header style="padding-top: 30px; padding-right: 30px;">עד תאריך:</header>
+<!-- TO DATE --> 
+	<header style="padding-top: 10px; padding-right: 30px;">עד תאריך:</header>
 	<input type="datetime-local" id="toValue" name="to" value="2021-01-1T19:30" style="width: 30%; margin-right: 30px"></input>
 </div>
 
 <form>
-	<select name="sensor" id="sensor" style="width: 30%; margin-right: 30px; margin-top: 10px" dir="rtl"> 
-	    <option value="0">--בחר חיישן--</option>
+	<select name="sensor" id="sensor" style="width: 30%; margin-right: 30px; margin-top: 10px;" dir="rtl" multiple> 
 	</select>
 </form>
 
-<button class="buttonStyle" style="margin-bottom: 10px;" onclick="addGraph()">הוסף גרף</button>
+<button class="buttonStyle" style="  display: flex; align-items: center;  padding-bottom: 10px; justify-content: center;" onclick="addGraph()">הוסף גרף</button>
+
+
 </div>
  
 <div style="height: 56%; width: 95%; border-radius: 20px; background-color: white; margin: auto; position: fixed; left: 50%; transform: translateX(-50%); box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
