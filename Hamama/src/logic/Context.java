@@ -277,4 +277,13 @@ public class Context {
 		out.print(jsonAllSensors);
 		return;
 	}
+	
+	public void getCurrentUser() {
+		User u = (User) this.session.getAttribute(SESSION_KEY_USER);
+		
+		if(u != null)
+			out.print(u.getId());
+		else 
+			out.print("-1");
+	}
 }
