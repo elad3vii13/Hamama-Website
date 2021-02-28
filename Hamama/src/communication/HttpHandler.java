@@ -40,7 +40,7 @@ public class HttpHandler extends BaseServlet {
 		String command = request.getParameter("cmd");
 
 		if (command == null)
-			response.getWriter().print("<p style='font-size: 24px'>I don't understand you!!!</p>");
+			response.getWriter().print("<p style='font-size: 24px'>I don't understand you!</p>");
 		else {
 			handleRequest(ctx, command);
 		}	
@@ -69,5 +69,4 @@ public class HttpHandler extends BaseServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
 }
