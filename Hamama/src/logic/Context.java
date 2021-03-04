@@ -207,6 +207,11 @@ public class Context {
 		  String value= request.getParameter("value");
 		  String time= request.getParameter("time");
 		  String sid= request.getParameter("sid");
+		  if (time == null || value == null || sid == null) {
+				 addInternalLogEntry();
+				 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+				 return;
+			  }
 		  Measure m = new Measure(Long.parseLong(time), Double.parseDouble(value), Integer.parseInt(sid));
 		  dbc.addMeasure(m);
 	}
@@ -217,8 +222,11 @@ public class Context {
 		  String priority = request.getParameter("priority");
 		  String message = request.getParameter("message");
 		  String sid= request.getParameter("sid");
-		  if (time == null || priority == null || message == null || sid == null)
-			  throw new Exception("bad new log command");
+		  if (time == null || priority == null || message == null || sid == null) {
+			 addInternalLogEntry();
+			 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			 return;
+		  }
 		  Log log = new Log(Long.parseLong(time), priority, message, Integer.parseInt(sid));
 		  dbc.addLogEntry(log);
 		  response.setStatus(HttpServletResponse.SC_OK);
@@ -227,6 +235,17 @@ public class Context {
 			System.out.println(e.getMessage());
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 		}
+	}
+	
+	public void addInternalLogEntry() {
+		 
+	  String time = Long.toString(System.currentTimeMillis());
+	  String priority = "error";
+	  String message = "Bad formated request from the board. URI=" + request.getRequestURI() + ", Parameters= " + request.getParameterMap();
+	  String sid= "-1";
+	  
+	  Log log = new Log(Long.parseLong(time), priority, message, Integer.parseInt(sid));
+	  dbc.addLogEntry(log);
 	}
 	
 	public void getLogEntries() {
@@ -285,5 +304,10 @@ public class Context {
 			out.print(u.getId());
 		else 
 			out.print("-1");
+	}
+	
+	public String getCurrentTime() {
+		long time = System.currentTimeMillis();
+		return Long.toString(time);
 	}
 }

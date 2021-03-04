@@ -1,6 +1,7 @@
 package communication;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,25 +16,43 @@ public class BoardServlet extends HttpServlet {
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) {
-		Context ctx;
+		int reqID=-1;
 		try {
-			ctx = new Context(request, response);
-		} catch (Exception e) {
+		
+			PrintWriter out = response.getWriter();
+			Context ctx = new Context(request, response);
+			reqID= request.getIntHeader("REQID");
+			String command = request.getParameter("cmd");
+			if (command == null) {
+				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			}
+			else {
+				switch (command) {
+					case "measure":
+						ctx.AddMeasure();
+						break;
+		
+					case "log":
+						ctx.AddLogEntry();
+						break;
+						
+					case "time":
+						out.write(ctx.getCurrentTime());
+						break;
+						
+					default:
+						ctx.addInternalLogEntry();
+						response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+						break;
+				}
+			}
+		}
+		catch (Exception e) {
 			System.out.println("Fatal error: the server is not functioning yet.");
 			e.printStackTrace();
-			return;
 		}
-		String command = request.getParameter("cmd");
-		if (command == null)
-			return;
-		switch (command) {
-		case "measure":
-			ctx.AddMeasure();
-			break;
-
-		case "log":
-			ctx.AddLogEntry();
-			break;
+		finally {
+			response.addIntHeader("REQID", reqID);
 		}
 	}
 	

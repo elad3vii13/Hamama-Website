@@ -254,7 +254,7 @@ public class MySQLDB {
 
 	}
 
-	public void addLogEntry (Log log) throws Exception {
+	public void addLogEntry (Log log) {
 
 		String sqlString = "INSERT INTO  log" + " (time, priority, message, sid)" 
 				+ "VALUES ("+ log.getTime()+ ",'" + log.getpriority() +"', '" + log.getMessage()+ "', " + log.getSid() + ")";
@@ -264,7 +264,6 @@ public class MySQLDB {
 			statement.close();
 		} catch(SQLException ex) {
 			System.out.println("SQLException: " + ex.getMessage());
-			throw new Exception("bad new-Log command");
 			}			
 	}
 	

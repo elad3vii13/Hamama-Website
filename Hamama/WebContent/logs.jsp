@@ -8,15 +8,9 @@
 <style>
 
 .upperDiv {
-  justify-content: space-between;
+	margin-top: 10px;
+  justify-content: space-between;   
   flex-direction: column;
-  display: flex;
-  height: 40%;
-  width: 95%;
-  border-radius: 20px;
-  background-color: white;
-  margin: 30px auto;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 body {
@@ -91,17 +85,17 @@ button{
 <% if(!ctx.isLoggedIn())
 		ctx.insertAlertDlg("You are not allowed to access this page, you are forwarded to the home page", "home.jsp");%>
 		
-<div class="upperDiv">
+<div class="upperDiv" style="position: relative; height: 40%; width: 95%; border-radius: 20px; background-color: white; margin: 20px auto; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
 
-	<div>
+	<div style="margin-top: 30px;">
 		<!-- FROM DATE -->
-		<header style="margin-top: 30px; margin-right: 30px;">מתאריך:</header>
+		<header style="margin-right: 30px; padding-top: 25px">מתאריך:</header>
 		<input type="datetime-local" id="fromValue" name="from" value="2021-01-1T19:30" style="width: 30%; margin-right: 30px"></input>
 	</div>
 	      
 	 <div>
 		<!-- TO DATE --> 
-		<header style="margin-top: 10px; margin-right: 30px;">עד תאריך:</header>
+		<header style="margin-right: 30px;">עד תאריך:</header>
 		<input type="datetime-local" id="toValue" name="to" value="2021-01-1T19:30" style="width: 30%; margin-right: 30px"></input>
 	</div>
 	
@@ -118,7 +112,9 @@ button{
 	    <option value="info">ידיעה</option>
 	</select>
 	
-	<button class="button-class" style="margin-bottom: 10px;" onclick="getHistory()">הוסף טבלה</button>
+	<div style="position: absolute; bottom: 0; margin-bottom: 10px; right: 50%;">
+		<button class="button-class" style="margin-bottom: 10px;" onclick="getHistory()">הוסף טבלה</button>
+	</div>
 </div>
 
 <div style="display:flex;justify-content:center;align-items:center; margin-top: 60px;">

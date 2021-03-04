@@ -38,9 +38,6 @@ select {
   color: white;
   font-family: "Raleway SemiBold", sans-serif;
   height: 42.3px;
-  margin: 0 auto;
-  margin-top: 50px;
-  transition: 0.25s;
   width: 350px;
 }
 </style>
@@ -54,7 +51,7 @@ select {
 	}
 %>
 
-<div class="upperDiv" style="height: 30%; width: 95%; border-radius: 20px; background-color: white; margin: 20px auto; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+<div class="upperDiv" style="position: relative; height: 30%; width: 95%; border-radius: 20px; background-color: white; margin: 20px auto; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
 
 <div>
 	<!-- FROM DATE -->
@@ -70,8 +67,9 @@ select {
 	</select>
 </form>
 
-<button class="buttonStyle" style="  display: flex; align-items: center;  padding-bottom: 10px; justify-content: center;" onclick="addGraph()">הוסף גרף</button>
-
+<div style="position: absolute; bottom: 0; margin-bottom: 10px; right: 50%;">
+<button class="buttonStyle" style="display: flex; align-items: center;  padding-bottom: 10px; justify-content: center;" onclick="addGraph()">הוסף גרף</button>
+</div>
 
 </div>
  
