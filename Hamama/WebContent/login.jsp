@@ -36,7 +36,16 @@
 </head>
 <body>
 	<%@ include file="header.jsp" %>
+	<% 
+	String msg=null;
+	String nickName = ctx.getFieldFromRequest("nickname");
+	String password = ctx.getFieldFromRequest("password");
+	if ((msg = (String)request.getAttribute("error"))!= null) {
+		ctx.insertAlertDlg(msg,null);
+	}
 	
+	%>
+
 	<div style="max-width: 350px; margin: 10vh auto;">
 	    <header style="text-align: center;">
 	        <img src="https://cdn.iconscout.com/icon/free/png-512/leaf-444-675813.png" style="width: 100px; height: 100px"/>

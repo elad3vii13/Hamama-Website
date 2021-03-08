@@ -147,7 +147,7 @@ public class Context {
 			else {
 				if (fromMobile) out.print(-1);
 				else {
-					 request.setAttribute("error",  "×©×� ×”×ž×©×ª×ž×© ×�×• ×”×¡×™×¡×ž×� ×�×™× ×� × ×›×•× ×™×�, ×�× ×� × ×¡×” ×©×•×‘");
+					 request.setAttribute("error",  "פרטי משתמש לא נכונים");
 					 request.getRequestDispatcher("login.jsp").forward(request, response);
 				}
 			}
