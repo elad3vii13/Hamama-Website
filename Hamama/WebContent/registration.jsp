@@ -65,13 +65,26 @@ body {
 	        <input type="text" name="nickname" id="nickname" placeholder="Username" class="form__input" style="width: 90%"/></div>
 	        
 	        <input style="width: 90%; margin-top: 1px" type="password" placeholder="Password" class="form__input" name="password" id="password" />
-	        <button class="btn" type="submit" formaction="HttpHandler?cmd=register" onclick="approve();" style="border-radius: 50px; margin-top: 30px; w">Register</button>
+	        <input style="width: 90%; margin-top: 1px" type="password" placeholder="Password" class="form__input" name="password" id="password2" />
+	        <button class="btn" type="submit" formaction="HttpHandler?cmd=register" onclick="return approve();" style="border-radius: 50px; margin-top: 30px; w">Register</button>
+	    
 	    </form>
 	</div>
 
 	<script>
 	function approve(){
-		window.alert("Thank you for registering");
+		var pass1 = document.getElementById("password");
+		var pass2 = document.getElementById("password2");
+
+		if(pass1.value == pass2.value) {
+			window.alert("Thank you for registering");
+			return true;
+		}
+		
+		else {
+			window.alert("The passwords must be the same");
+			return false;		
+		}
 	}
 	</script>
 </body>

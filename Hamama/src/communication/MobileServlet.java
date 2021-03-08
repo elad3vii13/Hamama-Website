@@ -28,6 +28,8 @@ public class MobileServlet extends BaseServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response){
+		System.out.println(request.getSession().getId());
+		
 		Context ctx;
 		try {
 			ctx = new Context(request, response);
@@ -53,7 +55,7 @@ public class MobileServlet extends BaseServlet {
 				break;
 				
 			case "logout":
-				ctx.handleLogin(true);
+				ctx.handleLogout(true);
 				break;
 			
 			case "currentUser":

@@ -74,9 +74,8 @@ public class MySQLDB {
 	}
 	
 	public void updateLastLogin(long lastLogin, String name) {
-		// UPDATE users SET lastLogin = '1313131313' WHERE nickname = 'elad';
        String sqlString = "UPDATE users SET lastLogin = '" + lastLogin + "'" + " WHERE nickname = '" + name + "'";
-       System.out.println(sqlString);
+       // System.out.println(sqlString);
         try {
         		Statement statement = con.createStatement();
 	            statement.executeUpdate(sqlString);
