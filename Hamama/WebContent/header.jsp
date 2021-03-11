@@ -26,10 +26,10 @@
 		out.write("שלום אורח"); %></p>
 	
 	<% if (ctx.isLoggedIn()){
+			out.write("<li><a href='logs.jsp'>היסטוריה</a></li>");
+ 		  	out.write("<li><a href='stats.jsp'>נתונים</a></li>");
   		if(ctx.isManager()) {
  			out.write("<li><a href='management.jsp'>ניהול</a></li>");
- 			out.write("<li><a href='logs.jsp'>היסטוריה</a></li>");
- 		  	out.write("<li><a href='stats.jsp'>נתונים</a></li>");
   		}
   	} %>
   	
