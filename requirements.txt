@@ -1,0 +1,7 @@
+בדיקה האם קיים שם זה במערכת ב- Javascript Approve
+
+האם יש להעביר את הקוד ליצירת הטבלה של המשתמשים והחיישנים ב-Script
+
+האם יש לפרט על הWEB-INF and META-INT 
+
+Favicon Fix
