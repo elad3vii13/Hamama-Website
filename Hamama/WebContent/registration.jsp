@@ -8,12 +8,9 @@
 <title>Hamama</title>
 
 <style>
+
 body {
 	overflow: hidden;
-    font-family: $font-family;
-    font-size: $font-size;
-    background-size: 200% 100% !important;
-    animation: move 10s ease infinite;
     transform: translate3d(0, 0, 0);
     background: linear-gradient(45deg, #49D49D 10%, #A2C7E5 90%);
     height: 100vh;
@@ -23,8 +20,6 @@ body {
     display: block;
     width: 100%;
     padding: 20px;
-    font-family: $font-family;
-    -webkit-appearance: none;
     border: 0;
     outline: 0;
     transition: 0.3s;
@@ -34,14 +29,13 @@ body {
     display: block;
     width: 100%;
     padding: 20px;
-    font-family: $font-family;
-    -webkit-appearance: none;
     outline: 0;
     border: 0;
     color: white;
     background: #000000;
     transition: 0.3s;
 }
+
 </style>
 </head>
 <body>
@@ -76,14 +70,14 @@ body {
 		var pass1 = document.getElementById("password");
 		var pass2 = document.getElementById("password2");
 
-		if(pass1.value == pass2.value) {
+		if(pass1.value == pass2.value && pass1.value.length > 4) {
 			window.alert("Thank you for registering");
 			return true;
 		}
 		
 		else {
-			window.alert("The passwords must be the same");
-			return false;		
+			window.alert("The passwords must be the same and longer than 4 characters!");
+			return false;
 		}
 	}
 	</script>

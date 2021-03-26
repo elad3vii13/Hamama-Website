@@ -35,15 +35,13 @@
 </style>
 </head>
 <body>
-	<%@ include file="header.jsp" %>
-	<% 
+	<%@ include file="header.jsp"
 	String msg=null;
 	String nickName = ctx.getFieldFromRequest("nickname");
 	String password = ctx.getFieldFromRequest("password");
 	if ((msg = (String)request.getAttribute("error"))!= null) {
-		ctx.insertAlertDlg(msg,null);
+		ctx.insertAlertDlg(msg, null);
 	}
-	
 	%>
 
 	<div style="max-width: 350px; margin: 10vh auto;">
