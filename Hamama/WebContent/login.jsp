@@ -36,13 +36,12 @@
 </head>
 <body>
 	<%@ include file="header.jsp" %>
-	
 	<%
-	String msg=null;
-	String nickName = ctx.getFieldFromRequest("nickname");
-	String password = ctx.getFieldFromRequest("password");
-	if ((msg = (String)request.getAttribute("error"))!= null) {
-		ctx.insertAlertDlg(msg, null);
+		String msg=null;
+		String nickName = ctx.getFieldFromRequest("nickname");
+		String password = ctx.getFieldFromRequest("password");
+		if ((msg = (String)request.getAttribute("error"))!= null) {
+			ctx.insertAlertDlg(msg, null);
 	}
 	%>
 

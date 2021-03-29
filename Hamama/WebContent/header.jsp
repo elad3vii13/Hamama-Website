@@ -20,10 +20,12 @@
   		out.write("<li><a href='HttpHandler?cmd=logout'>יציאה</a></li>"); %>  
  
   <p style= "float: left; color: white; margin-left: 10px; margin-top: 10px">
+  
 	<% if(ctx.isLoggedIn())
 		out.write(ctx.getCurrentUserName());
 	else
-		out.write("שלום אורח"); %></p>
+		out.write("שלום אורח"); %>
+  </p>
 	
 	<% if (ctx.isLoggedIn()){
 			out.write("<li><a href='logs.jsp'>היסטוריה</a></li>");

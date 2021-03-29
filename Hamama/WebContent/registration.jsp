@@ -80,6 +80,7 @@ body {
 			return false;
 		}
 	}
+	
 	</script>
 </body>
 </html>

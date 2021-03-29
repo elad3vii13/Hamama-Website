@@ -2,7 +2,6 @@
 <%@page import="model.User"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Date"%>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -12,7 +11,6 @@
 <title>Hamama</title>
 
 <style>
-
 body {
 	background: #06D5FA;
 }
@@ -66,8 +64,9 @@ button {
   transition: 0.25s;
   width: 350px;
 }
-
 </style>
+
+<script type="text/javascript" src="script.js"></script>
 </head>
 <body>
 	<%@ include file="header.jsp" %>
@@ -106,46 +105,13 @@ function createATable(){
 		    // the format of your date
 		    SimpleDateFormat sdf = new java.text.SimpleDateFormat("HH:mm:ss dd-MM-yyyy"); 
 		    // give a timezone reference for formatting (see comment at the bottom)
-		    sdf.setTimeZone(java.util.TimeZone.getTimeZone("GMT+2"));
+		    sdf.setTimeZone(java.util.TimeZone.getTimeZone("GMT+3"));
 		    String formattedDate = sdf.format(date);
 	       
 	       string_final += "<td>" + formattedDate + "</td>";
 		   string_final += "</tr>";
       } %>
       document.getElementById("Board").innerHTML = '<%=string_final %>';
-}	
-
-function getSensorList(){
-	var result = 'HttpHandler?cmd=sensors';    
-	var xmlhttp = new XMLHttpRequest();
-	
-    xmlhttp.onreadystatechange = function() {
-        if (xmlhttp.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
-           if (xmlhttp.status == 200) { // The HTTP 200 OK success status response code indicates that the request has succeeded. 
-              
-        	   var sensorsJson = JSON.parse(xmlhttp.responseText);
-               var string_final = "";
-               string_final += "<tr><th class=table-header>מזהה</th><th class=table-header>שם חיישן</th><th class=table-header>יחידות</th></tr>";
-               
-           	   for(i in sensorsJson){
-           			string_final += "<tr>";
-                   string_final += "<td>" + sensorsJson[i].id + "</td>";
-                   string_final += "<td>" + sensorsJson[i].displayName + "</td>";
-                   
-           		   if(sensorsJson[i].units == "")
-                       string_final += "<td>NONE</td>";
-           		   else
-                       string_final += "<td>" + sensorsJson[i].units + "</td>";
-                       
-            	   string_final += "</tr>";
-           	   }
-               document.getElementById("Board").innerHTML = string_final;
-           }
-        }
-    }
-    
-    xmlhttp.open("GET", result.toString(), true);
-    xmlhttp.send();
 }
 </script>
 </html>

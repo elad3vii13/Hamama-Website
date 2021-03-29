@@ -164,7 +164,7 @@ public class Context {
 			handleLogin(false);
 		}
 		else {
-			request.setAttribute("error", "×©×� ×ž×©×ª×ž×© ×–×” ×›×‘×¨ ×‘×©×™×ž×•×©, ×�× ×� ×”×–×Ÿ ×©×� ×�×—×¨");
+			request.setAttribute("error", "מבחן");
 			try {
 				request.getRequestDispatcher("registration.jsp").forward(request, response);
 				dbc.updateLastLogin(lastLogin, nickname);
@@ -299,7 +299,6 @@ public class Context {
 	
 	public void getCurrentUser() {
 		User u = (User) this.session.getAttribute(SESSION_KEY_USER);
-		
 		if(u != null)
 			out.print(u.getId());
 		else 

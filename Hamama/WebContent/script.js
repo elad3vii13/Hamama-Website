@@ -3,7 +3,7 @@ var resultArray;
 
 function getUpdatedSensorList() { // Creates a dictionary of the sensor list, and fill 'x' with the sensor list, that the dropdown will be filled with the sensors.
 	var x = document.getElementById("sensor");
-	var result = 'HttpHandler?cmd=sensors';    
+	var result = 'HttpHandler?cmd=sensors'; 
 	dictionary = new Map();
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
@@ -16,7 +16,6 @@ function getUpdatedSensorList() { // Creates a dictionary of the sensor list, an
             	  option.text = sensorsJson[i].displayName;
             	  option.value = parseInt(i) +1;
             	  x.add(option);
-
             	  dictionary.set(parseInt(sensorsJson[i].id, 10), sensorsJson[i].displayName.toString());
          	   }	
          }
@@ -232,4 +231,37 @@ function sortByPriority(){
    })
 
    fillTable(resultArray);
+}
+
+function getSensorList(){
+  var result = 'HttpHandler?cmd=sensors';    
+  var xmlhttp = new XMLHttpRequest();
+  
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
+           if (xmlhttp.status == 200) { // The HTTP 200 OK success status response code indicates that the request has succeeded. 
+              
+             var sensorsJson = JSON.parse(xmlhttp.responseText);
+               var string_final = "";
+               string_final += "<tr><th class=table-header>מזהה</th><th class=table-header>שם חיישן</th><th class=table-header>יחידות</th></tr>";
+               
+               for(i in sensorsJson){
+                string_final += "<tr>";
+                   string_final += "<td>" + sensorsJson[i].id + "</td>";
+                   string_final += "<td>" + sensorsJson[i].displayName + "</td>";
+                   
+                 if(sensorsJson[i].units == "")
+                       string_final += "<td>NONE</td>";
+                 else
+                       string_final += "<td>" + sensorsJson[i].units + "</td>";
+                       
+                 string_final += "</tr>";
+               }
+               document.getElementById("Board").innerHTML = string_final;
+           }
+        }
+    }
+    
+    xmlhttp.open("GET", result.toString(), true);
+    xmlhttp.send();
 }

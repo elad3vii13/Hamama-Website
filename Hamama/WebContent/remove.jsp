@@ -7,35 +7,26 @@
 <title>Hamama</title>
 
 <style>
-
-body {
-	overflow: hidden;
-    background: linear-gradient(45deg, #49D49D 10%, #A2C7E5 90%);
-    height: 100vh
-}
-
-
-.form__input {
-    display: block;
-    width: 90%;
-    padding: 20px;
-    font-family: $font-family;
-    -webkit-appearance: none;
-    border: 0;
-    outline: 0;
-}
-
-.btn {
-    display: block;
-    width: 100%;
-    padding: 20px;
-    outline: 0;
-    border: 0;
-    color: white;
-    background: #000000;
-    transition: 0.3s;
-}
+	.form__input {
+	    display: block;
+	    width: 90%;
+	    padding: 20px;
+	    border: 0;
+	    outline: 0;
+	}
+	
+	.btn {
+	    display: block;
+	    width: 100%;
+	    padding: 20px;
+	    outline: 0;
+	    border: 0;
+	    color: white;
+	    background: #000000;
+	    transition: 0.3s;
+	}
 </style>
+<link rel="stylesheet" href="css/globalClasses.css">
 </head>
 <body>
 	<%@ include file="header.jsp" %>

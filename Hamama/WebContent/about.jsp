@@ -22,7 +22,6 @@ header {
 
 <body>
 <%@ include file="header.jsp" %>
-
 <div>
 	<header style="margin-top: 30px; text-align: center; margin-left: 150px; margin-right: 150px; font-size: 100px;">
 		אודות
