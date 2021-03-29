@@ -53,7 +53,6 @@ public class MySQLDB {
 			return null;
 		} 
 	}
-	
 
 	private static Connection connectToCloudDbByIP(String user, String password) {
 		try { 

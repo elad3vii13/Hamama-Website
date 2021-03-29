@@ -114,7 +114,7 @@ public class Context {
 	
 	public boolean isManager(){
 		User u = (User) this.session.getAttribute(SESSION_KEY_USER);
-		return (u!= null) &&  u.getRole().equals(User.MGR_ROLE);
+		return (u!= null) && u.getRole().equals(User.MGR_ROLE);
 	}
 	
 	public String getCurrentUserName() {
