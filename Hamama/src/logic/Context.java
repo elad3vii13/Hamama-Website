@@ -164,7 +164,7 @@ public class Context {
 			handleLogin(false);
 		}
 		else {
-			request.setAttribute("error", "מבחן");
+			request.setAttribute("error", "שם המשתמש קיים, אנא נסה שנית");
 			try {
 				request.getRequestDispatcher("registration.jsp").forward(request, response);
 				dbc.updateLastLogin(lastLogin, nickname);

@@ -41,7 +41,10 @@ body {
 <body>
 	<%@ include file="header.jsp" %>
 	<% if(!ctx.isLoggedIn() || !ctx.isManager())
-		ctx.insertAlertDlg("You are not allowed to access this page, you are forwarded to the home page", "home.jsp");%>
+		ctx.insertAlertDlg("You are not allowed to access this page, you are forwarded to the home page", "home.jsp");
+		
+		// לבדוק אם קיימת שגיאה
+		%>
 	
 	<div style="max-width: 340px; margin: 10vh auto;">
 	    <header style="text-align: center;">
@@ -51,7 +54,7 @@ body {
 	        </h1>
 	    </header>
 	
-	    <form style="margin-top: 40px;" method="post"><br>
+	    <form style="margin-top: 40px"; method='post'><br>
 	        <label for="role">מנהל?</label>
 			<input type="checkbox" id="role" name="role" value="manager"><br><br>
 	        
@@ -69,7 +72,7 @@ body {
 	function approve(){
 		var pass1 = document.getElementById("password");
 		var pass2 = document.getElementById("password2");
-
+				
 		if(pass1.value == pass2.value && pass1.value.length > 4) {
 			window.alert("Thank you for registering");
 			return true;
