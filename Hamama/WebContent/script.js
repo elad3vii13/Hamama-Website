@@ -54,7 +54,7 @@ function addGraph(){
             
              var result = JSON.parse(xmlhttp.responseText);
              var resultJson = JSON.parse(result.measures);
-             addNewLine(resultJson);
+             addNewLine(resultJson, i);
 
              if (i < sensor.length){
                 result = 'HttpHandler?cmd=measure&sid=' + sensor[i++].value + '&from=' + fromUnix + '&to=' + toUnix;
@@ -70,8 +70,18 @@ function addGraph(){
 
 var linesCounter=0;
 
-function addNewLine(resultJson){
+function toggleDataSeries(e){
+  if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+    e.dataSeries.visible = false;
+  }
+  else{
+    e.dataSeries.visible = true;
+  }
+  chart.render();
+}
 
+function addNewLine(resultJson, i){
+   sid = i;
    var timeArr = [];
    var valueArr = [];
    var dps = []; // dataPoints array
@@ -88,7 +98,6 @@ function addNewLine(resultJson){
        });
 
    if (chart == undefined){
-
     chart = new CanvasJS.Chart("chartContainer",
      {
        zoomEnabled: true,
@@ -100,7 +109,14 @@ function addNewLine(resultJson){
         axisY: {
           title: "Values"
         },
+        legend:{
+            cursor: "pointer",
+            fontSize: 16,
+            itemclick: toggleDataSeries
+          },
         data: [{
+          name: dictionary.get(sid),
+          showInLegend: true,
           type: "line",
           dataPoints: dps
         }]
@@ -108,8 +124,9 @@ function addNewLine(resultJson){
     }
 
     else {
-     
       chart.addTo("data", {
+          name: dictionary.get(sid),
+          showInLegend: true,
           type: "line",
           dataPoints: dps
         }, linesCounter);
