@@ -179,28 +179,33 @@ function getHistory(){
 
 function fillTable(resultArray){
 	  var string_final = "";
-	  string_final += "<tr><th class=table-header><button onclick=sortBySensors()>חיישן</button></th>";
+	  string_final += "<tr><th class=table-header><button onclick=sortBySensors()>מקור</button></th>";
 	  string_final += "<th class=table-header>הערה</th>";
 	  string_final += "<th class=table-header><button onclick=sortByPriority()>עדיפות</button></th>";
 	  string_final += "<th class=table-header><button onclick=sortByTime()>תאריך</button></th></tr>";
 	
 	   for (i in resultArray) {
 		   string_final += "<tr>";
-	   	 var sensorName = dictionary.get(resultArray[i].sid);
+
+       if(resultArray[i].sid == -1)
+           var sensorName = "כללי"
+       else
+	   	   var sensorName = dictionary.get(resultArray[i].sid);
+       
 	     string_final += "<td>" + sensorName + "</td>";
 	     string_final += "<td>" + resultArray[i].message + "</td>";
 	
        switch(resultArray[i].priority) {
        		case "info": 
-       		string_final += '<td><img style="width: 100px; height: 100px;" src="images/info.png"></td>';
+       		string_final += '<td><img style="width: 50px; height: 50px;" src="images/info.png"></td>';
        		break;
 
        		case "warning": 
-       		string_final += '<td><img style="width: 100px; height: 100px;" src="images/warning.png"></td>';
+       		string_final += '<td><img style="width: 50px; height: 50px;" src="images/warning.png"></td>';
        		break;
 
        		case "error": 
-       		string_final += '<td><img style="width: 100px; height: 100px;" src="images/error.png"></td>';
+       		string_final += '<td><img style="width: 50px; height: 50px;" src="images/error.png"></td>';
        		break;
        }
 

@@ -42,17 +42,13 @@ body {
 	<%@ include file="header.jsp" %>
 	<% if(!ctx.isLoggedIn() || !ctx.isManager())
 		ctx.insertAlertDlg("You are not allowed to access this page, you are forwarded to the home page", "home.jsp");
-		
-		// לבדוק אם קיימת שגיאה
-		%>
-	<%
-	String msg=null;
-	String nickName = ctx.getFieldFromRequest("nickname");
-	String password = ctx.getFieldFromRequest("password");
-	if ((msg = (String)request.getAttribute("error"))!= null) {
-		ctx.insertAlertDlg(msg, null);
-	}
 	
+		String msg=null;
+		String nickName = ctx.getFieldFromRequest("nickname");
+		String password = ctx.getFieldFromRequest("password");
+		if ((msg = (String)request.getAttribute("error"))!= null) {
+			ctx.insertAlertDlg(msg, null);
+		}
 	%>
 
 	<div style="max-width: 340px; margin: 10vh auto;">
@@ -92,7 +88,6 @@ body {
 			return false;
 		}
 	}
-	
 	</script>
 </body>
 </html>
