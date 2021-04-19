@@ -26,11 +26,11 @@ import model.MySQLDB;
 import model.Sensor;
 import model.User;
 
-//This class is a middle layer class between the "communication" layers 
-//and the back-end/model/db layers. it provides mainly business logic to
-//your web site.
-//it has two constructors, one usually used from servlets/listeners modules 
-//and the other used from jsp pages
+	//	This class is a middle layer class between the "communication" layers 
+	//	and the back-end/model/db layers. it provides mainly business logic to
+	//	your web site.
+	//	it has two constructors, one usually used from servlets/listeners modules 
+	//	and the other used from jsp pages
 
 public class Context {
 	MySQLDB dbc;

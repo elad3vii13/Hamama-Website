@@ -101,7 +101,8 @@ button{
 	
 	<form>
 		<select name="sensor" id="sensor" style="width: 30%; margin-right: 30px; margin-top: 10px" dir="rtl"> 
-		    <option value="0">כל החיישנים</option>
+		    <option value="-1">כללי</option>
+		    <option value="0">הכל</option>
 		</select>
 	</form>
 	

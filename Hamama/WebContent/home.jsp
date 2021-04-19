@@ -1,7 +1,3 @@
-<%@page import="java.net.URLConnection"%>
-<%@page import= "java.net.*"%>
-<%@page import= "java.io.*"%>
-<%@page import="java.io.Console"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
