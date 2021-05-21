@@ -9,11 +9,10 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-
 public class MySQLDB {
 	static final String REMOTE_USER="elad2021";
 	static final String REMOTE_PSW= "DeaLnaiDeL";
-	
+
 	static final String LOCAL_USER="root";
 	static final String LOCAL_PSW= "1313";
 	
@@ -42,7 +41,7 @@ public class MySQLDB {
 	}
 	
 	private static Connection connectToLocalDB(String user, String password) {
-		try { 
+		try {
 			Class.forName("com.mysql.jdbc.Driver"); 
 			String url= String.format("jdbc:mysql://localhost:3306/sotz?serverTimezone=Asia/Jerusalem"); 
 			return DriverManager.getConnection(url, user, password);
@@ -55,7 +54,7 @@ public class MySQLDB {
 	}
 
 	private static Connection connectToCloudDbByIP(String user, String password) {
-		try { 
+		try {
 			Class.forName("com.mysql.jdbc.Driver"); 
 			String url= String.format("jdbc:mysql://35.205.18.21:3306/sotz"); 
 			return DriverManager.getConnection(url, user, password);
@@ -380,5 +379,4 @@ public class MySQLDB {
 			return null; 
 		}
 	}
-	
 }

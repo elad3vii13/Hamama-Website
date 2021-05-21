@@ -18,7 +18,6 @@ public class BoardServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) {
 		int reqID=-1;
 		try {
-		
 			PrintWriter out = response.getWriter();
 			Context ctx = new Context(request, response);
 			reqID= request.getIntHeader("REQID");

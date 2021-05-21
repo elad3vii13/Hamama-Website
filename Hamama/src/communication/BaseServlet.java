@@ -80,5 +80,4 @@ public class BaseServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
 }

@@ -80,7 +80,7 @@ button{
 </style>
 <script type="text/javascript" src="script.js"></script>
 </head>
-<body onload=" getUpdatedSensorList()">
+<body onload="getUpdatedSensorList()">
 <%@ include file="header.jsp" %>
 <% if(!ctx.isLoggedIn())
 		ctx.insertAlertDlg("You are not allowed to access this page, you are forwarded to the home page", "home.jsp");%>
