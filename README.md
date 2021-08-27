@@ -16,3 +16,22 @@ http://<ip address>:8080/board?cmd=log&sid=<sid>&time=<time>&priority=<1-3>&mess
 ```
 
 # Screenshot's from the website:
+
+<br>
+
+<p align="center" width="70%">
+    <img width="90%" src="https://user-images.githubusercontent.com/60574244/131137267-4d4d5968-1e13-4d68-afc1-6476d82bf9fb.png">  ㅤ
+</p>
+
+<br>
+
+<p align="center" width="70%">
+    <img width="90%" src="https://user-images.githubusercontent.com/60574244/131139098-84265424-9d4a-4a87-a4ea-6298b3673cbc.png">  ㅤ
+</p>
+
+<br>
+
+<p align="center" width="70%">
+    <img width="90%" src="https://user-images.githubusercontent.com/60574244/131139313-8d68b2ab-6062-4bba-b4a8-fcc363fe0f1c.png">  ㅤ
+</p>
+
